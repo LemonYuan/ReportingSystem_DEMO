@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:p="http://www.springframework.org/schema/p" 
+xmlns:context="http://www.springframework.org/schema/context" 
+xmlns:tx="http://www.springframework.org/schema/tx" 
+xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+http://www.springframework.org/schema/context 
+http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+<context:component-scan base-package="scau" />
+
+<!-- configurate the dataSource -->
+<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+   <property name="driverClassName" value="com.mysql.jdbc.Driver" />   
+   <property name="url" value="jdbc:mysql://localhost:3306/sales_line" />   
+   <property name="username" value="root" />   
+   <property name="password" value="" />   
+</bean>
+
+<!-- configurate the SqlSessionFactory 
+     dataSource：引用上面的定义的数据源
+     typeAliasesPackage：用于指定包pojo的别名，整个包都指定了
+ -->
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"></property>
+    <property name="typeAliasesPackage" value="scau.models"></property>
+    <property name="configLocation" value="classpath:Configuration.xml"/>
+</bean>
+
+<!-- auto-scanning the Mapper.xml file
+     basePackage: auto-scann the mapper file in the specified package
+     sqlSessionFactory:refer to the sqlSessionFactory above.
+ -->
+<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="basePackage" value="scau.mappers"></property>
+    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+</bean>
+
+<!-- delare the transactionManager -->
+<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+     <property name="dataSource" ref="dataSource"></property>
+</bean>
+     
+<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+     
+<tx:annotation-driven transaction-manager="txManager" />
+
+</beans>
+

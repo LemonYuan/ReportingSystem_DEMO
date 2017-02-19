@@ -1,0 +1,5 @@
+scau\models\OverallModel.class
+scau\services\GeoGraphService.class
+scau\mappers\AssembleMapper.class
+scau\services\BarChartService.class
+scau\controllers\AssembleController.class
