@@ -5,4 +5,6 @@ import java.util.List;
 
 public interface AssembleMapper {
      public List<LinkedHashMap> customizedQuery(LinkedHashMap map);
+     public List<LinkedHashMap> boxPlotQuery(LinkedHashMap map);
+     public List<LinkedHashMap> lineGraphQuery(LinkedHashMap map);
 }

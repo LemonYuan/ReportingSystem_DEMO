@@ -16,7 +16,7 @@
         $("#assembleQuery").click(function(){
 		     
         	 $.ajax({
-   			  url: "http://localhost:8080/reportsystem/assembleQuery1",
+   			  url: "http://localhost:8080/reportsystem/geo_graph",
    			  dataType:"JSON",
    			  data:{x:"plateNumLoc",y:"count(plateNumLoc)",t:"records"},
    			  type:'post',
