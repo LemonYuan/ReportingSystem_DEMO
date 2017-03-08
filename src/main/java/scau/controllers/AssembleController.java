@@ -1,5 +1,6 @@
 package scau.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -63,12 +64,13 @@ public class AssembleController {
 	}
     
     @RequestMapping("/box_plot")
- 	public @ResponseBody JsonObject boxPlot(@RequestParam(value="x") String x,@RequestParam(value="y") String y,@RequestParam(value="t") String t,HttpServletRequest request, HttpServletResponse response) {
-     	System.out.println(x+y);
- 		LinkedHashMap property=new LinkedHashMap();
- 		property.put("x", x);
- 		property.put("y", y);
- 		property.put("t", t);
+ 	public @ResponseBody JsonObject boxPlot(@RequestParam(value="x") String x,@RequestParam(value="table") String table,HttpServletRequest request, HttpServletResponse response) {
+     	System.out.println(x);
+     	String[] column=x.split(",");
+     	LinkedHashMap property=new LinkedHashMap();
+ 		property.put("x", column[0].toString());
+ 		property.put("y",  column[1].toString());
+ 		property.put("t", table);
  		return BoxPlotService.customizedQuery(property);
  	}
     

@@ -9,16 +9,64 @@
     <script src="js/china.js"></script>
  </head>
 <body>
-<h2>Hello World!</h2>
+	<h2 align="center">地图</h2>
+	<select id="tableOne" name="可选表格"></select> 
+    <select id='columnOne' name='可选属性'></select>
      <button id="assembleQuery" >assembleQuery</button>
      <div id="main" style="width: 800px;height:800px;"></div>
+   <script type="text/javascript">
+         $(document).ready(function(){
+        	 $.ajax({
+   			  url: "http://localhost:8080/reportsystem/getTableName",
+   			  dataType:"JSON",
+ 			  type:'post',
+   			  success: function(result){
+   					var tableName=result.tableName
+   					$("#tableOne").empty()
+   					for (var i=0;i<tableName.length;i++){
+   						var index=tableName[i]
+   						$("#tableOne").append("<option value='"+index+"'>"+index+"<br>")
+   					}
+   					$("#tableOne").trigger("change");
+   		      },
+   		    error: function(){
+   		    	alert("访问失败")
+   			  }
+   		  });
+        });
+         
+         $("#tableOne").on("change",function(){
+        	var tableName=$('#tableOne option:selected').val()
+        	alert(tableName)
+        	 $.ajax({
+      			  url: "http://localhost:8080/reportsystem/getColumnName",
+      			  dataType:"JSON",
+      			  data:{"tableName":tableName},
+    			  type:'post',
+      			  success: function(result){
+      					alert(result)
+      					var columnName=result.columnName
+      					$("#columnOne").empty()
+       					for (var i=0;i<columnName.length;i++){
+       						var index=columnName[i]
+       						$("#columnOne").append("<option value='"+index+"'>"+index+"<br>")
+       					}
+      		      },
+      		    error: function(){
+      		    	alert("访问失败")
+      			  }
+      		  });
+         });
+	</script>
+	
  <script type="text/javascript">
         $("#assembleQuery").click(function(){
-		     
+        	var tableName=$('#tableOne option:selected').val()
+        	var columnName=$('#columnOne option:selected').val()
         	 $.ajax({
    			  url: "http://localhost:8080/reportsystem/geo_graph",
    			  dataType:"JSON",
-   			  data:{x:"plateNumLoc",y:"count(plateNumLoc)",t:"records"},
+   			  data:{x:columnName,y:"count("+columnName+")",t:tableName},
    			  type:'post',
    			  success: function(result){
    				   if(result){

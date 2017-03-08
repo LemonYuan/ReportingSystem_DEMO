@@ -20,7 +20,7 @@
 		<button id="box_plot">box_plot</button>
 	</form>
 	<form action="changePage" method="POST">
-		<input value="geo_graph" type="hidden" />
+		<input name="action_name" value="geo_graph" type="hidden" />
 		<button id="geo_graph">geo_graph</button>
 	</form>
 	<form action="changePage" method="POST">

@@ -27,6 +27,7 @@
    						var index=tableName[i]
    						$("#tableOne").append("<option value='"+index+"'>"+index+"<br>")
    					}
+   					$("#tableOne").trigger("change");
    		      },
    		    error: function(){
    		    	alert("访问失败")
@@ -64,7 +65,7 @@
         	 $.ajax({
    			  url: "http://localhost:8080/reportsystem/assembleQuery",
    			  dataType:"JSON",
-   			  data:{x:columnName,y:"count(quotedPrice)",t:tableName},
+   			  data:{x:columnName,y:"count("+columnName+")",t:tableName},
    			  type:'post',
    			  success: function(result){
    				   if(result){

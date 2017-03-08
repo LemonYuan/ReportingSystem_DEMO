@@ -8,9 +8,11 @@
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/echarts.js"></script>
 <script src="js/dataTool.min.js"></script>
+
 </head>
 <body>
 	<h2 align="center">箱型图</h2>
+	 <select id="tableOne" name="可选表格"></select><br>
 	<button id="assembleQuery">blox_plot</button>
 	<div id="main" style="width: 800px; height: 800px;"></div>
 	<script type="text/javascript">
@@ -26,6 +28,7 @@
    						var index=tableName[i]
    						$("#tableOne").append("<option value='"+index+"'>"+index+"<br>")
    					}
+   					$("#tableOne").trigger("change");
    		      },
    		    error: function(){
    		    	alert("访问失败")
@@ -35,7 +38,6 @@
          
          $("#tableOne").on("change",function(){
         	var tableName=$('#tableOne option:selected').val()
-        	alert(tableName)
         	 $.ajax({
       			  url: "http://localhost:8080/reportsystem/getColumnName",
       			  dataType:"JSON",
@@ -44,10 +46,9 @@
       			  success: function(result){
       					alert(result)
       					var columnName=result.columnName
-      					$("#columnOne").empty()
        					for (var i=0;i<columnName.length;i++){
        						var index=columnName[i]
-       						$("#columnOne").append("<option value='"+index+"'>"+index+"<br>")
+       						$("#tableOne").after("<input  type='checkbox' value='"+index+"' />"+index)
        					}
       		      },
       		    error: function(){
@@ -55,13 +56,32 @@
       			  }
       		  });
          });
+         
+         $(document).on("click",":checkbox",function(){
+        	 var number= $(":checkbox:checked").length
+        	 if(number>2)
+        		 {
+        		     alert("只可选择两个选项")
+        		     $(":checkbox").prop('checked',false)
+        		 }
+         });
 	</script>
+	
+
+	 
 	<script type="text/javascript">
         $("#assembleQuery").click(function(){
+        	var columnArray=new Array()
+        	var tableName=$('#tableOne option:selected').val()
+        	$(':checkbox:checked').each(function() { 
+        		columnArray.push($(this).val())
+        	}); 
+        	alert(tableName)
+        	alert(columnArray.join())
         	 $.ajax({
    			  url: "http://localhost:8080/reportsystem/box_plot",
    			  dataType:"JSON",
-   			  data:{x:"quotedPrice",y:"originalPrice",t:"records"},
+   			  data:{"x":columnArray.join(),"table":tableName},
    			  type:'post',
    			  success: function(result){
    				   if(result){
