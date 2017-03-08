@@ -1,6 +1,8 @@
 package scau.controllers;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +17,10 @@ import com.google.gson.JsonObject;
 
 import scau.services.BarChartService;
 import scau.services.BoxPlotService;
+import scau.services.ColumnNameService;
 import scau.services.GeoGraphService;
 import scau.services.LineGraphService;
+import scau.services.TableNameService;
 
 @Controller
 public class AssembleController {
@@ -31,6 +35,12 @@ public class AssembleController {
     
     @Autowired
     LineGraphService lineGraphService;
+    
+    @Autowired
+    TableNameService tableNameService;
+    
+    @Autowired
+    ColumnNameService columnNameService;
     
     @RequestMapping("/assembleQuery")
 	public @ResponseBody JsonObject assembleQuery(@RequestParam(value="x") String x,@RequestParam(value="y") String y,@RequestParam(value="t") String t,HttpServletRequest request, HttpServletResponse response) {
@@ -69,5 +79,22 @@ public class AssembleController {
     	property.put("x", x);
     	property.put("t", t);
     	return lineGraphService.customizedQuery(property);
+    }
+    
+    @RequestMapping("/getTableName")
+    public  @ResponseBody JsonObject getTableName(HttpServletRequest request, HttpServletResponse response) {
+    	return tableNameService.getTableName();
+    }
+    
+    @RequestMapping("/getColumnName")
+    public  @ResponseBody JsonObject getColumnName(@RequestParam(value="tableName") String tableName,HttpServletRequest request, HttpServletResponse response) {
+    	HashMap map=new HashMap();
+    	map.put("tableName", tableName);
+    	return columnNameService.getColumnName(map);
+    }
+    
+    @RequestMapping("/changePage")
+    public  String changeTo(Map<String,Object> map,@RequestParam(value="action_name") String action_name,HttpServletRequest request, HttpServletResponse response) {
+    	return action_name;
     }
 }

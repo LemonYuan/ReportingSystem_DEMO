@@ -13,7 +13,7 @@ select ${x},${y} from ${t}
 </select>
 
 <select id="lineGraphQuery" parameterType="map" resultType="java.util.LinkedHashMap" statementType="STATEMENT">
-select ${x} from ${t}
+select ${x} from ${t} group by ${x}
 </select>
 
 </mapper>
