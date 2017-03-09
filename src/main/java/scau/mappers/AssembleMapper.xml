@@ -16,4 +16,5 @@ select ${x},${y} from ${t}
 select ${x} from ${t} group by ${x}
 </select>
 
+
 </mapper>
