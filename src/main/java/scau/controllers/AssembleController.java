@@ -33,7 +33,7 @@ public class AssembleController {
     GeoGraphService geoGraphService;
     
     @Autowired
-    BoxPlotService BoxPlotService;
+    BoxPlotService boxPlotService;
     
     @Autowired
     LineGraphService lineGraphService;
@@ -83,14 +83,19 @@ public class AssembleController {
     }
     
     @RequestMapping("/box_plot")
- 	public @ResponseBody JsonObject boxPlot(@RequestParam(value="x") String x,@RequestParam(value="table") String table,HttpServletRequest request, HttpServletResponse response) {
-     	System.out.println(x);
-     	String[] column=x.split(",");
-     	LinkedHashMap property=new LinkedHashMap();
- 		property.put("x", column[0].toString());
- 		property.put("y",  column[1].toString());
+ 	public @ResponseBody JsonObject boxPlot(@RequestParam(value="sql",required=false) String sql,@RequestParam(value="isSQL") Integer isSQL,@RequestParam(value="x",required=false) String x,@RequestParam(value="table",required=false) String table,HttpServletRequest request, HttpServletResponse response) {
+    	System.out.println(x);
+    	LinkedHashMap property=new LinkedHashMap();
+    	if(x!=null){
+    		String[] column=x.split(",");
+     		property.put("x", column[0].toString());
+     		property.put("y",  column[1].toString());
+    	}
+ 		property.put("isSQL", isSQL);
+ 		property.put("sql", sql);
  		property.put("t", table);
- 		return BoxPlotService.customizedQuery(property);
+ 		System.out.println("进入box");
+    	return boxPlotService.customizedQuery(property);
  	}
     
     @RequestMapping("/line_graph")

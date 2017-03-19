@@ -14,7 +14,7 @@
 	<h2 align="center">箱型图</h2>
 	<textarea rows="2" cols="40" id="sql"></textarea><button name="superQuery" class="generating">自写查询</button><br>
 	 <select id="tableOne" name="可选表格"></select><br>
-	<button id="assembleQuery" class="generating">blox_plot</button>
+	<button name="assembleQuery" class="generating">blox_plot</button>
 	<div id="main" style="width: 800px; height: 800px;"></div>
 	<script type="text/javascript">
          $(document).ready(function(){
@@ -71,18 +71,26 @@
 
 	 
 	<script type="text/javascript">
-        $("#assembleQuery").click(function(){
-        	var columnArray=new Array()
-        	var tableName=$('#tableOne option:selected').val()
-        	$(':checkbox:checked').each(function() { 
-        		columnArray.push($(this).val())
-        	}); 
-        	alert(tableName)
-        	alert(columnArray.join())
+	 $(".generating").click(function(){
+		  var data;
+     	if($(this).attr('name')=='assembleQuery'){
+     		var columnArray=new Array()
+       	var tableName=$('#tableOne option:selected').val()
+       	$(':checkbox:checked').each(function() { 
+       		columnArray.push($(this).val())
+       	}); 
+         	var obj='{"x":"'+columnArray.join()+'","table":"'+tableName+'","isSQL":"0"}';
+         	data=jQuery.parseJSON(obj);
+     	}
+     	else{
+     		var sql=$('#sql').val()
+     		var obj='{"sql":"'+sql+'","isSQL":"1"}';
+     		data =jQuery.parseJSON(obj);
+     	}
         	 $.ajax({
    			  url: "http://localhost:8080/reportsystem/box_plot",
    			  dataType:"JSON",
-   			  data:{"x":columnArray.join(),"table":tableName},
+   			  data:data,
    			  type:'post',
    			  success: function(result){
    				   if(result){

@@ -21,7 +21,14 @@ public class BoxPlotService {
 	AssembleMapper assembleMapper;
 	
 	public JsonObject customizedQuery(LinkedHashMap map){
-		List<LinkedHashMap> result=assembleMapper.boxPlotQuery(map);
+		int isSQL=(int) map.get("isSQL");
+		List<LinkedHashMap> result;
+		if(isSQL==0){
+			result=assembleMapper.boxPlotQuery(map);
+		}
+		else{
+			result=assembleMapper.superQuery(map.get("sql").toString());
+		}
 		JsonObject jo=new JsonObject();
 		JsonArray data1 = new JsonArray();
 		JsonArray data0 = new JsonArray();
