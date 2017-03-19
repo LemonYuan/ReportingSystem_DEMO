@@ -21,7 +21,14 @@ public class ScatterChartService {
 	AssembleMapper assembleMapper;
 	
 	public JsonObject customizedQuery(LinkedHashMap map){
-		List<LinkedHashMap> result=assembleMapper.boxPlotQuery(map);
+		int isSQL=(int) map.get("isSQL");
+		List<LinkedHashMap> result;
+		if(isSQL==0){
+			result=assembleMapper.boxPlotQuery(map);
+		}
+		else{
+			result=assembleMapper.superQuery(map.get("sql").toString());
+		}
 		JsonObject jo=new JsonObject();
 		JsonArray ja=new JsonArray();
 		for(int i=0;i<result.size();i++){

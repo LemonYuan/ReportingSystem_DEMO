@@ -38,14 +38,12 @@
          
          $("#tableOne").on("change",function(){
         	var tableName=$('#tableOne option:selected').val()
-        	alert(tableName)
         	 $.ajax({
       			  url: "http://localhost:8080/reportsystem/getColumnName",
       			  dataType:"JSON",
       			  data:{"tableName":tableName},
     			  type:'post',
       			  success: function(result){
-      					alert(result)
       					var columnName=result.columnName
       					$("#columnOne").empty()
        					for (var i=0;i<columnName.length;i++){
@@ -81,7 +79,6 @@
    			  type:'post',
    			  success: function(result){
    				   if(result){
-   					   alert(result)
    					 var myChart = echarts.init(document.getElementById('main'));
       				    var option = {
       				        title: {

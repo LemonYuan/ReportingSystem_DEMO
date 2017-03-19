@@ -103,12 +103,16 @@ public class AssembleController {
     }
     
     @RequestMapping("/scatter_chart")
-    public @ResponseBody JsonObject scatterChart(@RequestParam(value="x") String x,@RequestParam(value="table") String table,HttpServletRequest request, HttpServletResponse response) {
+    public @ResponseBody JsonObject scatterChart(@RequestParam(value="sql",required=false) String sql,@RequestParam(value="isSQL") Integer isSQL,@RequestParam(value="x",required=false) String x,@RequestParam(value="table",required=false) String table,HttpServletRequest request, HttpServletResponse response) {
     	System.out.println(x);
-     	String[] column=x.split(",");
-     	LinkedHashMap property=new LinkedHashMap();
- 		property.put("x", column[0].toString());
- 		property.put("y",  column[1].toString());
+    	LinkedHashMap property=new LinkedHashMap();
+    	if(x!=null){
+    		String[] column=x.split(",");
+     		property.put("x", column[0].toString());
+     		property.put("y",  column[1].toString());
+    	}
+ 		property.put("isSQL",  isSQL);
+ 		property.put("sql", sql);
  		property.put("t", table);
     	return scatterChartService.customizedQuery(property);
     }

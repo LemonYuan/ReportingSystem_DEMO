@@ -11,8 +11,9 @@
 </head>
 <body>
 	<h2 align="center">柱状图</h2><br>
+		<textarea rows="2" cols="40" id="sql"></textarea><button name="superQuery" class="generating">自写查询</button><br>
     <select id="tableOne" name="可选表格"></select><br>
-	<button id="assembleQuery">blox_plot</button>
+	<button name="assembleQuery" class="generating">blox_plot</button>
 	<div id="main" style="width: 800px; height: 800px;"></div>
 	<script type="text/javascript">
          $(document).ready(function(){
@@ -43,7 +44,6 @@
       			  data:{"tableName":tableName},
     			  type:'post',
       			  success: function(result){
-      					alert(result)
       					var columnName=result.columnName
        					for (var i=0;i<columnName.length;i++){
        						var index=columnName[i]
@@ -66,22 +66,29 @@
          });
 	</script>
 	<script type="text/javascript">
-        $("#assembleQuery").click(function(){
-        	var columnArray=new Array()
+	  $(".generating").click(function(){
+		  var data;
+      	if($(this).attr('name')=='assembleQuery'){
+      		var columnArray=new Array()
         	var tableName=$('#tableOne option:selected').val()
         	$(':checkbox:checked').each(function() { 
         		columnArray.push($(this).val())
         	}); 
-        	alert(tableName)
-        	alert(columnArray.join())
+          	var obj='{"x":"'+columnArray.join()+'","table":"'+tableName+'","isSQL":"0"}';
+          	data=jQuery.parseJSON(obj);
+      	}
+      	else{
+      		var sql=$('#sql').val()
+      		var obj='{"sql":"'+sql+'","isSQL":"1"}';
+      		data =jQuery.parseJSON(obj);
+      	}
         	 $.ajax({
    			  url: "http://localhost:8080/reportsystem/scatter_chart",
    			  dataType:"JSON",
-   			  data:{"x":columnArray.join(),"table":tableName},
+   			  data:data,
    			  type:'post',
    			  success: function(result){
    				   if(result){
-   					   alert(result)
    					 var myChart = echarts.init(document.getElementById('main'));
    					var data = result.data;
 
