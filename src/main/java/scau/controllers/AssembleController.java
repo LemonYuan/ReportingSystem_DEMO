@@ -51,12 +51,14 @@ public class AssembleController {
     ScatterChartService scatterChartService;
     
     @RequestMapping("/assembleQuery")
-	public @ResponseBody JsonObject assembleQuery(@RequestParam(value="x") String x,@RequestParam(value="y") String y,@RequestParam(value="t") String t,HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody JsonObject assembleQuery(@RequestParam(value="sql",required=false) String sql,@RequestParam(value="x",required=false) String x,@RequestParam(value="y",required=false) String y,@RequestParam(value="t",required=false) String t,@RequestParam(value="isSQL") Integer isSQL,HttpServletRequest request, HttpServletResponse response) {
     	System.out.println(x+y);
 		LinkedHashMap property=new LinkedHashMap();
 		property.put("x", x);
 		property.put("y", y);
 		property.put("t", t);
+		property.put("sql", sql);
+		property.put("isSQL", isSQL);
 		return barChartService.customizedQuery(property);
 	}
     
@@ -124,7 +126,8 @@ public class AssembleController {
     }
     
     @RequestMapping("/changePage")
-    public  String changeTo(Map<String,Object> map,@RequestParam(value="action_name") String action_name,HttpServletRequest request, HttpServletResponse response) {
+    public  String changeTo(@RequestParam(value="action_name") String action_name,HttpServletRequest request, HttpServletResponse response) {
     	return action_name;
     }
+    
 }

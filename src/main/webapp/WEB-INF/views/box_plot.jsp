@@ -12,8 +12,9 @@
 </head>
 <body>
 	<h2 align="center">箱型图</h2>
+	<textarea rows="2" cols="40" id="sql"></textarea><button name="superQuery" class="generating">自写查询</button><br>
 	 <select id="tableOne" name="可选表格"></select><br>
-	<button id="assembleQuery">blox_plot</button>
+	<button id="assembleQuery" class="generating">blox_plot</button>
 	<div id="main" style="width: 800px; height: 800px;"></div>
 	<script type="text/javascript">
          $(document).ready(function(){

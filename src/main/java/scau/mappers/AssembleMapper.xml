@@ -16,5 +16,9 @@ select ${x},${y} from ${t}
 select ${x} from ${t} group by ${x}
 </select>
 
+<select id="superQuery"  parameterType="String" resultType="java.util.LinkedHashMap" >
+${value}
+</select>
+
 
 </mapper>

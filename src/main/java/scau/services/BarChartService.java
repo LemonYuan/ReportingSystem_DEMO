@@ -19,7 +19,14 @@ public class BarChartService {
 	AssembleMapper assembleMapper;
 	
 	public JsonObject customizedQuery(LinkedHashMap map){
-		List<LinkedHashMap> result=assembleMapper.customizedQuery(map);
+		int isSQL=(int) map.get("isSQL");
+		List<LinkedHashMap> result;
+		if(isSQL==0){
+			result=assembleMapper.customizedQuery(map);
+		}
+		else{
+			result=assembleMapper.superQuery(map.get("sql").toString());
+		}
 		JsonObject jo = new JsonObject();
 		JsonArray categories = new JsonArray();
 		JsonArray data = new JsonArray();

@@ -10,9 +10,10 @@
 </head>
 <body>
 	<h2 align="center">柱状图</h2><br>
+	<textarea rows="2" cols="40" id="sql"></textarea><button name="superQuery" class="generating">自写查询</button><br>
     <select id="tableOne" name="可选表格"></select> 
     <select id='columnOne' name='可选属性'></select>
-    <button id="assembleQuery">图片生成</button>
+    <button name="assembleQuery" class="generating">图片生成</button>
 	<div id="main" style="width: 600px; height: 400px;"></div>
 	<script type="text/javascript">
          $(document).ready(function(){
@@ -59,13 +60,24 @@
          });
 	</script>
 	<script type="text/javascript">
-        $("#assembleQuery").click(function(){
-        	var tableName=$('#tableOne option:selected').val()
-        	var columnName=$('#columnOne option:selected').val()
+        $(".generating").click(function(){
+        	var data;
+        	if($(this).attr('name')=='assembleQuery'){
+        		var tableName=$('#tableOne option:selected').val()
+            	var columnName=$('#columnOne option:selected').val()
+            	var obj='{"x":"'+columnName+'","y":"count('+columnName+')","t":"'+tableName+'","isSQL":"0"}';
+            	data=jQuery.parseJSON(obj);
+        	}
+        	else{
+        		var sql=$('#sql').val()
+        		var obj='{"sql":"'+sql+'","isSQL":"1"}';
+        		data =jQuery.parseJSON(obj);
+        	}
+        	
         	 $.ajax({
-   			  url: "http://localhost:8080/reportsystem/assembleQuery",
+   			  url:"http://localhost:8080/reportsystem/assembleQuery",
    			  dataType:"JSON",
-   			  data:{x:columnName,y:"count("+columnName+")",t:tableName},
+   			  data:data,
    			  type:'post',
    			  success: function(result){
    				   if(result){
@@ -100,7 +112,6 @@
    			  }
    		  });
         })
-        
    </script>
 </body>
 </html>
