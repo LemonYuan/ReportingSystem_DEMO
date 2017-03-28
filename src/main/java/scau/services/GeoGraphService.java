@@ -18,7 +18,16 @@ public class GeoGraphService {
 	AssembleMapper assembleMapper;
 	
 	public JsonObject customizedQuery(LinkedHashMap map){
-		List<LinkedHashMap> result=assembleMapper.customizedQuery(map);
+		int isSQL=(int) map.get("isSQL");
+		List<LinkedHashMap> result;
+		if(isSQL==0){
+			result=assembleMapper.customizedQuery(map);
+		}
+		else{
+			String sql=(String) map.get("sql");
+			result=assembleMapper.superQuery(sql);
+		}
+		
 		JsonArray data = new JsonArray();
 		LinkedHashMap temp_map = new LinkedHashMap();
 		for (int i = 0; i < result.size(); i++) {

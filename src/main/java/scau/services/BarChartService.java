@@ -14,7 +14,7 @@ import com.google.gson.JsonPrimitive;
 
 import scau.mappers.AssembleMapper;
 @Service
-public class BarChartService {
+public class BarChartService implements ServiceInterface{
 	@Autowired
 	AssembleMapper assembleMapper;
 	

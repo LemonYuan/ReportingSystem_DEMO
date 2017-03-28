@@ -10,9 +10,10 @@
  </head>
 <body>
 	<h2 align="center">地图</h2>
+	<textarea rows="2" cols="40" id="sql"></textarea><button name="superQuery" class="generating">自写查询</button><br>
 	<select id="tableOne" name="可选表格"></select> 
     <select id='columnOne' name='可选属性'></select>
-     <button id="assembleQuery" >assembleQuery</button>
+     <button name="assembleQuery" class="generating">assembleQuery</button>
      <div id="main" style="width: 800px;height:800px;"></div>
    <script type="text/javascript">
          $(document).ready(function(){
@@ -37,14 +38,12 @@
          
          $("#tableOne").on("change",function(){
         	var tableName=$('#tableOne option:selected').val()
-        	alert(tableName)
         	 $.ajax({
       			  url: "http://localhost:8080/reportsystem/getColumnName",
       			  dataType:"JSON",
       			  data:{"tableName":tableName},
     			  type:'post',
       			  success: function(result){
-      					alert(result)
       					var columnName=result.columnName
       					$("#columnOne").empty()
        					for (var i=0;i<columnName.length;i++){
@@ -60,13 +59,23 @@
 	</script>
 	
  <script type="text/javascript">
-        $("#assembleQuery").click(function(){
-        	var tableName=$('#tableOne option:selected').val()
-        	var columnName=$('#columnOne option:selected').val()
+     $(".generating").click(function(){
+        	var data;
+        	if($(this).attr('name')=='assembleQuery'){
+        		var tableName=$('#tableOne option:selected').val()
+            	var columnName=$('#columnOne option:selected').val()
+            	var obj='{"x":"'+columnName+'","y":"count('+columnName+')","t":"'+tableName+'","isSQL":"0"}';
+            	data=jQuery.parseJSON(obj);
+        	}
+        	else{
+        		var sql=$('#sql').val()
+        		var obj='{"sql":"'+sql+'","isSQL":"1"}';
+        		data =jQuery.parseJSON(obj);
+        	}
         	 $.ajax({
    			  url: "http://localhost:8080/reportsystem/geo_graph",
    			  dataType:"JSON",
-   			  data:{x:columnName,y:"count("+columnName+")",t:tableName},
+   			  data:data,
    			  type:'post',
    			  success: function(result){
    				   if(result){

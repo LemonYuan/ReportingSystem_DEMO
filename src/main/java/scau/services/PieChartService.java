@@ -20,7 +20,15 @@ public class PieChartService {
 	AssembleMapper assembleMapper;
 	
 	public JsonObject customizedQuery(LinkedHashMap map){
-		List<LinkedHashMap> result=assembleMapper.customizedQuery(map);
+		int isSQL=(int) map.get("isSQL");
+		List<LinkedHashMap> result;
+		if(isSQL==0){
+			result=assembleMapper.customizedQuery(map);
+		}
+		else{
+			String sql=(String) map.get("sql");
+			result=assembleMapper.superQuery(sql);
+		}
 		JsonObject jo=new JsonObject();
 		JsonArray title=new JsonArray();
 		JsonArray ja=new JsonArray();

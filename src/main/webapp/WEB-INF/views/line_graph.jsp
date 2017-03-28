@@ -11,7 +11,7 @@
 <h2>Hello World!</h2>
      <button id="assembleQuery" >line_graph</button>
      <div id="main" style="width: 600px;height:400px;"></div>
- <script type="text/javascript">
+     <script type="text/javascript">
         $("#assembleQuery").click(function(){
 		     
         	 $.ajax({

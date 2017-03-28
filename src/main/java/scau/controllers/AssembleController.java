@@ -2,7 +2,6 @@ package scau.controllers;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,19 +14,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonObject;
 
-import scau.services.BarChartService;
 import scau.services.BoxPlotService;
 import scau.services.ColumnNameService;
 import scau.services.GeoGraphService;
 import scau.services.LineGraphService;
 import scau.services.PieChartService;
 import scau.services.ScatterChartService;
+import scau.services.ServiceInterface;
 import scau.services.TableNameService;
 
 @Controller
 public class AssembleController {
     @Autowired
-    BarChartService barChartService;
+    ServiceInterface barChartService;
     
     @Autowired
     GeoGraphService geoGraphService;
@@ -63,22 +62,36 @@ public class AssembleController {
 	}
     
     @RequestMapping("/geo_graph")
-	public @ResponseBody JsonObject geoGraph(@RequestParam(value="x") String x,@RequestParam(value="y") String y,@RequestParam(value="t") String t,HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody JsonObject geoGraph(@RequestParam(value="sql",required=false) String sql,@RequestParam(value="isSQL") Integer isSQL,@RequestParam(value="x",required=false) String x,@RequestParam(value="y",required=false) String y,@RequestParam(value="t",required=false) String t,HttpServletRequest request, HttpServletResponse response) {
     	System.out.println(x+y);
 		LinkedHashMap property=new LinkedHashMap();
-		property.put("x", x);
-		property.put("y", y);
-		property.put("t", t);
+		if(isSQL==0){
+			property.put("x", x);
+			property.put("y", y);
+			property.put("t", t);
+			property.put("isSQL", isSQL);
+		}
+		else{
+			property.put("isSQL", isSQL);
+			property.put("sql", sql);
+		}
 		return geoGraphService.customizedQuery(property);
 	}
     
     @RequestMapping("/pie_chart")
-    public @ResponseBody JsonObject pieChart(@RequestParam(value="x") String x,@RequestParam(value="y") String y,@RequestParam(value="t") String t,HttpServletRequest request, HttpServletResponse response) {
+    public @ResponseBody JsonObject pieChart(@RequestParam(value="sql",required=false) String sql,@RequestParam(value="isSQL") Integer isSQL,@RequestParam(value="x",required=false) String x,@RequestParam(value="y",required=false) String y,@RequestParam(value="t",required=false) String t,HttpServletRequest request, HttpServletResponse response) {
     	System.out.println(x+y);
     	LinkedHashMap property=new LinkedHashMap();
-    	property.put("x", x);
-    	property.put("y", y);
-    	property.put("t", t);
+		if(isSQL==0){
+			property.put("x", x);
+			property.put("y", y);
+			property.put("t", t);
+			property.put("isSQL", isSQL);
+		}
+		else{
+			property.put("isSQL", isSQL);
+			property.put("sql", sql);
+		}
     	return pieChartService.customizedQuery(property);
     }
     
