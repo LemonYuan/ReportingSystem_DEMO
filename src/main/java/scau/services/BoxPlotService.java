@@ -1,6 +1,5 @@
 package scau.services;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -55,6 +54,32 @@ public class BoxPlotService {
 		data0.add(data1);
 		data0.add(data2);
 		jo.add("data", data0);
+		System.out.println(jo.toString());
+		return jo;
+	}
+	
+	public JsonObject customizedQuery2(LinkedHashMap map,int isSQL){
+		List<LinkedHashMap> result;
+		if(isSQL==0){
+			result=assembleMapper.boxPlotQuery2(map);
+			System.out.println(map.get("columns").toString());
+		}
+		else{
+			result=assembleMapper.superQuery(map.get("sql").toString());
+		}
+		JsonObject jo=new JsonObject();
+		JsonArray ja=new JsonArray();
+		List list=(List) map.get("columns");
+		for (int i = 0; i < list.size(); i++) {
+			JsonArray tem_array=new JsonArray();
+			LinkedHashMap temp_map = new LinkedHashMap();
+			for (int j=0;j<result.size();j++){
+				temp_map=result.get(j);
+				tem_array.add(new JsonPrimitive(temp_map.get(list.get(i)).toString()));
+			}
+			ja.add(tem_array);
+		}
+		jo.add("data", ja);
 		System.out.println(jo.toString());
 		return jo;
 	}

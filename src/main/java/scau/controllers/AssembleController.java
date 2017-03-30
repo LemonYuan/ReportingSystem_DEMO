@@ -1,7 +1,9 @@
 package scau.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,6 +50,23 @@ public class AssembleController {
     
     @Autowired
     ScatterChartService scatterChartService;
+    
+    @RequestMapping("/getTableName")
+    public  @ResponseBody JsonObject getTableName(HttpServletRequest request, HttpServletResponse response) {
+    	return tableNameService.getTableName();
+    }
+    
+    @RequestMapping("/getColumnName")
+    public  @ResponseBody JsonObject getColumnName(@RequestParam(value="tableName") String tableName,HttpServletRequest request, HttpServletResponse response) {
+    	HashMap map=new HashMap();
+    	map.put("tableName", tableName);
+    	return columnNameService.getColumnName(map);
+    }
+    
+    @RequestMapping("/changePage")
+    public  String changeTo(@RequestParam(value="action_name") String action_name,HttpServletRequest request, HttpServletResponse response) {
+    	return action_name;
+    }
     
     @RequestMapping("/assembleQuery")
 	public @ResponseBody JsonObject assembleQuery(@RequestParam(value="sql",required=false) String sql,@RequestParam(value="x",required=false) String x,@RequestParam(value="y",required=false) String y,@RequestParam(value="t",required=false) String t,@RequestParam(value="isSQL") Integer isSQL,HttpServletRequest request, HttpServletResponse response) {
@@ -96,19 +115,21 @@ public class AssembleController {
     }
     
     @RequestMapping("/box_plot")
- 	public @ResponseBody JsonObject boxPlot(@RequestParam(value="sql",required=false) String sql,@RequestParam(value="isSQL") Integer isSQL,@RequestParam(value="x",required=false) String x,@RequestParam(value="table",required=false) String table,HttpServletRequest request, HttpServletResponse response) {
-    	System.out.println(x);
+ 	public @ResponseBody JsonObject boxPlot(@RequestParam(value="sql",required=false) String sql,@RequestParam(value="isSQL") Integer isSQL,@RequestParam(value="columns",required=false) String columns,@RequestParam(value="table",required=false) String table,HttpServletRequest request, HttpServletResponse response) {
+    	System.out.println(columns);
     	LinkedHashMap property=new LinkedHashMap();
-    	if(x!=null){
-    		String[] column=x.split(",");
-     		property.put("x", column[0].toString());
-     		property.put("y",  column[1].toString());
+    	if(columns!=null){
+    		String[] column=columns.split(",");
+    		List list =new ArrayList();
+    		for (int i=0;i<column.length;i++){
+    			list.add(column[i]);
+    		}
+    		property.put("columns", list);
     	}
- 		property.put("isSQL", isSQL);
  		property.put("sql", sql);
- 		property.put("t", table);
+ 		property.put("table", table);
  		System.out.println("进入box");
-    	return boxPlotService.customizedQuery(property);
+    	return boxPlotService.customizedQuery2(property,isSQL);
  	}
     
     @RequestMapping("/line_graph")
@@ -133,23 +154,6 @@ public class AssembleController {
  		property.put("sql", sql);
  		property.put("t", table);
     	return scatterChartService.customizedQuery(property);
-    }
-    
-    @RequestMapping("/getTableName")
-    public  @ResponseBody JsonObject getTableName(HttpServletRequest request, HttpServletResponse response) {
-    	return tableNameService.getTableName();
-    }
-    
-    @RequestMapping("/getColumnName")
-    public  @ResponseBody JsonObject getColumnName(@RequestParam(value="tableName") String tableName,HttpServletRequest request, HttpServletResponse response) {
-    	HashMap map=new HashMap();
-    	map.put("tableName", tableName);
-    	return columnNameService.getColumnName(map);
-    }
-    
-    @RequestMapping("/changePage")
-    public  String changeTo(@RequestParam(value="action_name") String action_name,HttpServletRequest request, HttpServletResponse response) {
-    	return action_name;
     }
     
 }

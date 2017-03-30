@@ -35,7 +35,7 @@
 		<input name="action_name" value="scatter_chart" type="hidden" />
 		<button id="scatter_chart">scatter_chart</button>
 	</form>
-	<form action="index.jsp" method="POST">
+	<form action="Kmeans" method="POST">
 		<input name="action_name" value="data_minning" type="hidden" />
 		<button id="data_minning">data_minning</button>
 	</form>

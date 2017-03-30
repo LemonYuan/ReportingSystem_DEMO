@@ -1,5 +1,9 @@
 package scau.controllers;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,8 +21,17 @@ public class DataMiningController {
 	@Autowired
 	DataMiningService dataMiningService;
 
-	@RequestMapping("/CBA")
-	public @ResponseBody String CBA(HttpServletRequest request, HttpServletResponse response) {
-		return dataMiningService.CBA();
-	}
+	@RequestMapping("/Kmeans")
+  	public @ResponseBody String Kmeans(HttpServletRequest request, HttpServletResponse response) {
+	    System.out.println(request.getSession().getServletContext().getRealPath("/"));
+     	String url=request.getSession().getServletContext().getRealPath("/");
+	    LinkedHashMap property=new LinkedHashMap();
+     		List list =new ArrayList();
+     		list.add("originalPrice");
+     		list.add("quotedPrice");
+     	property.put("columns", list);
+  		property.put("table", "records");
+  		System.out.println("进入box");
+     	return dataMiningService.Kmeans(property,url);
+  	}
 }

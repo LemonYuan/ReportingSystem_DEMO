@@ -8,7 +8,16 @@
 select ${x},${y} from ${t} group by ${x}
 </select>
 
-<select id="boxPlotQuery" parameterType="map" resultType="java.util.LinkedHashMap" statementType="STATEMENT">
+<select id="boxPlotQuery2" parameterType="map" resultType="java.util.LinkedHashMap" statementType="STATEMENT">
+select
+  <foreach item="item" index="index" collection="columns"
+      open="" separator="," close="">
+        ${item}
+  </foreach>
+  from ${table}
+</select>
+
+<select id="boxPlotQuery" parameterType="map"  statementType="STATEMENT">
 select ${x},${y} from ${t}
 </select>
 

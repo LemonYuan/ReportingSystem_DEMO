@@ -45,7 +45,6 @@
       			  data:{"tableName":tableName},
     			  type:'post',
       			  success: function(result){
-      					alert(result)
       					var columnName=result.columnName
        					for (var i=0;i<columnName.length;i++){
        						var index=columnName[i]
@@ -58,14 +57,7 @@
       		  });
          });
          
-         $(document).on("click",":checkbox",function(){
-        	 var number= $(":checkbox:checked").length
-        	 if(number>2)
-        		 {
-        		     alert("只可选择两个选项")
-        		     $(":checkbox").prop('checked',false)
-        		 }
-         });
+      
 	</script>
 	
 
@@ -79,7 +71,7 @@
        	$(':checkbox:checked').each(function() { 
        		columnArray.push($(this).val())
        	}); 
-         	var obj='{"x":"'+columnArray.join()+'","table":"'+tableName+'","isSQL":"0"}';
+         	var obj='{"columns":"'+columnArray.join()+'","table":"'+tableName+'","isSQL":"0"}';
          	data=jQuery.parseJSON(obj);
      	}
      	else{
