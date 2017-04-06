@@ -37,7 +37,7 @@ public class ScatterChartService {
 			Iterator iter=hm.entrySet().iterator();
 			while(iter.hasNext()){
 				Entry entry = (Entry) iter.next();
-				tem_ja.add(new JsonPrimitive(entry.getValue().toString()));
+				tem_ja.add(new JsonPrimitive(Double.valueOf(entry.getValue().toString())));
 			}
 			ja.add(tem_ja);
 		}

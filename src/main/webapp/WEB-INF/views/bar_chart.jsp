@@ -31,7 +31,7 @@
    					$("#tableOne").trigger("change");
    		      },
    		    error: function(){
-   		    	alert("访问失败")
+   		    	alert("数据库连接失败")
    			  }
    		  });
         });
@@ -52,7 +52,7 @@
        					}
       		      },
       		    error: function(){
-      		    	alert("访问失败")
+      		    	alert("数据库连接失败")
       			  }
       		  });
          });

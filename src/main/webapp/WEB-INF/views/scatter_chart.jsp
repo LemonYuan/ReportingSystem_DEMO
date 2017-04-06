@@ -12,7 +12,14 @@
 <body>
 	<h2 align="center">柱状图</h2><br>
 		<textarea rows="2" cols="40" id="sql"></textarea><button name="superQuery" class="generating">自写查询</button><br>
-    <select id="tableOne" name="可选表格"></select><br>
+    表名：<select id="tableOne" name="可选表格"></select>
+    回归类型：<select id="regressionType">
+    <option value="linear">linear
+    <option value="exponential">exponential
+    <option value="logarithmic">logarithmic
+    <option value="polynomial">polynomial
+    </select><br>
+   字段名： <div id="columns"></div>
 	<button name="assembleQuery" class="generating">blox_plot</button>
 	<div id="main" style="width: 800px; height: 800px;"></div>
 	<script type="text/javascript">
@@ -45,9 +52,10 @@
     			  type:'post',
       			  success: function(result){
       					var columnName=result.columnName
+      					$("#columns").empty()
        					for (var i=0;i<columnName.length;i++){
        						var index=columnName[i]
-       						$("#tableOne").after("<input  type='checkbox' value='"+index+"' />"+index)
+       						$("#columns").append("<label><input  type='checkbox' value='"+index+"' />"+index+"</label>")
        					}
       		      },
       		    error: function(){
@@ -68,6 +76,7 @@
 	<script type="text/javascript">
 	  $(".generating").click(function(){
 		  var data;
+
       	if($(this).attr('name')=='assembleQuery'){
       		var columnArray=new Array()
         	var tableName=$('#tableOne option:selected').val()
@@ -88,11 +97,11 @@
    			  data:data,
    			  type:'post',
    			  success: function(result){
+   				  var regression=$('#regressionType option:selected').val()
    				   if(result){
    					 var myChart = echarts.init(document.getElementById('main'));
    					var data = result.data;
-
-   				 var myRegression = ecStat.regression('polynomial', data, 3);
+   				 var myRegression = ecStat.regression(regression, data, 3);
 
    				 myRegression.points.sort(function(a, b) {
    				     return a[0] - b[0];

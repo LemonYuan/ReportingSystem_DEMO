@@ -10,7 +10,7 @@ import java.text.MessageFormat;
 public class Client {
 	public static void main(String[] args){
 		String filePath = "src\\main\\resources\\input.txt";
-		String attrDesc = "Age=Senior,CreditRating=Fair";
+		String attrDesc = "OutLook=Sunny,PlayTennis=Yes";
 		String classification = null;
 		
 		//最小支持度阈值率

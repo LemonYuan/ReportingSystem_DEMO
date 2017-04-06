@@ -13,7 +13,8 @@
 <body>
 	<h2 align="center">箱型图</h2>
 	<textarea rows="2" cols="40" id="sql"></textarea><button name="superQuery" class="generating">自写查询</button><br>
-	 <select id="tableOne" name="可选表格"></select><br>
+	 表名：<select id="tableOne" name="可选表格"></select><br>
+	 字段名： <div id="columns"></div>
 	<button name="assembleQuery" class="generating">blox_plot</button>
 	<div id="main" style="width: 800px; height: 800px;"></div>
 	<script type="text/javascript">
@@ -46,9 +47,10 @@
     			  type:'post',
       			  success: function(result){
       					var columnName=result.columnName
+      					$("#columns").empty();
        					for (var i=0;i<columnName.length;i++){
        						var index=columnName[i]
-       						$("#tableOne").after("<input  type='checkbox' value='"+index+"' />"+index)
+       						$("#columns").append("<label><input  type='checkbox' value='"+index+"' />"+index+"</label>")
        					}
       		      },
       		    error: function(){

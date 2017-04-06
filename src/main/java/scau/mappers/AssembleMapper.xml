@@ -17,7 +17,7 @@ select
   from ${table}
 </select>
 
-<select id="boxPlotQuery" parameterType="map"  statementType="STATEMENT">
+<select id="boxPlotQuery" parameterType="map"  resultType="java.util.LinkedHashMap" statementType="STATEMENT">
 select ${x},${y} from ${t}
 </select>
 

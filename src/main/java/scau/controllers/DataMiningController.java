@@ -32,6 +32,6 @@ public class DataMiningController {
      	property.put("columns", list);
   		property.put("table", "records");
   		System.out.println("进入box");
-     	return dataMiningService.Kmeans(property,url);
+     	return dataMiningService.ID3(property,url);
   	}
 }
