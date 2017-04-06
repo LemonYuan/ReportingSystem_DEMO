@@ -22,7 +22,7 @@ public class DataMiningService {
 	AssembleMapper assembleMapper;
 
 	public String Kmeans(LinkedHashMap map,String url) {
-		List<LinkedHashMap> result = assembleMapper.boxPlotQuery2(map);
+		List<LinkedHashMap> result = assembleMapper.multiParamQuery(map);
 		List list = (List) map.get("columns");
 		File inputfile = new File(url+"/input.txt");
 		try {
@@ -66,7 +66,7 @@ public class DataMiningService {
 		return null;
 	}
 	public String ID3(LinkedHashMap map,String url){
-		List<LinkedHashMap> result = assembleMapper.boxPlotQuery2(map);
+		List<LinkedHashMap> result = assembleMapper.multiParamQuery(map);
 		List list = (List) map.get("columns");
 		File inputfile = new File(url+"/input.txt");
 		try {
@@ -111,7 +111,7 @@ public class DataMiningService {
 		return null;
 	}
 	public String CBA(LinkedHashMap map,String url){
-		List<LinkedHashMap> result = assembleMapper.boxPlotQuery2(map);
+		List<LinkedHashMap> result = assembleMapper.multiParamQuery(map);
 		List list = (List) map.get("columns");
 		File inputfile = new File(url+"/input.txt");
 		try {
@@ -156,7 +156,7 @@ public class DataMiningService {
 		return null;
 	}
 	public String EM(LinkedHashMap map,String url) {
-		List<LinkedHashMap> result = assembleMapper.boxPlotQuery2(map);
+		List<LinkedHashMap> result = assembleMapper.multiParamQuery(map);
 		System.out.println(map.get("columns").toString());
 		List list = (List) map.get("columns");
 		File inputfile = new File(url+"/input.txt");

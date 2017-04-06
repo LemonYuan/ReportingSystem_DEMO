@@ -34,7 +34,17 @@
 		<form action="changePage" method="POST">
 		<input name="action_name" value="scatter_chart" type="hidden" />
 		<button id="scatter_chart">scatter_chart</button>
+	</form><br>
 	</form>
+		<form action="changePage" method="POST">
+		<input name="action_name" value="update_all" type="hidden" />
+		<button id="update_all">update_all</button>
+	</form><br>
+	</form>
+		<form action="changePage" method="POST">
+		<input name="action_name" value="delete_all" type="hidden" />
+		<button id="delete_all">delete_all</button>
+	</form><br>
 	<form action="Kmeans" method="POST">
 		<input name="action_name" value="data_minning" type="hidden" />
 		<button id="data_minning">data_minning</button>

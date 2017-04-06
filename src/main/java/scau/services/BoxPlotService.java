@@ -23,7 +23,7 @@ public class BoxPlotService {
 		int isSQL=(int) map.get("isSQL");
 		List<LinkedHashMap> result;
 		if(isSQL==0){
-			result=assembleMapper.boxPlotQuery(map);
+			result=assembleMapper.doubleParamQuery(map);
 		}
 		else{
 			result=assembleMapper.superQuery(map.get("sql").toString());
@@ -61,7 +61,7 @@ public class BoxPlotService {
 	public JsonObject customizedQuery2(LinkedHashMap map,int isSQL){
 		List<LinkedHashMap> result;
 		if(isSQL==0){
-			result=assembleMapper.boxPlotQuery2(map);
+			result=assembleMapper.multiParamQuery(map);
 			System.out.println(map.get("columns").toString());
 		}
 		else{

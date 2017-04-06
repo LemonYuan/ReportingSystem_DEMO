@@ -18,7 +18,7 @@ public class LineGraphService {
 	AssembleMapper assembleMapper;
 	
 	public JsonObject customizedQuery(LinkedHashMap map){
-		List<LinkedHashMap> result=assembleMapper.lineGraphQuery(map);
+		List<LinkedHashMap> result=assembleMapper.singleParamGroupBy(map);
 		JsonObject jo=new JsonObject();
 		LinkedHashMap tem_map=new LinkedHashMap();
 		for (int i = 0; i < result.size(); i++) {

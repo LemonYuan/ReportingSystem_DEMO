@@ -23,7 +23,7 @@ public class PieChartService {
 		int isSQL=(int) map.get("isSQL");
 		List<LinkedHashMap> result;
 		if(isSQL==0){
-			result=assembleMapper.customizedQuery(map);
+			result=assembleMapper.doubleParamGroupBy(map);
 		}
 		else{
 			String sql=(String) map.get("sql");

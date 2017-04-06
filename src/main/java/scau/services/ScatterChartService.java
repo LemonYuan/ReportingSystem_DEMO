@@ -24,7 +24,7 @@ public class ScatterChartService {
 		int isSQL=(int) map.get("isSQL");
 		List<LinkedHashMap> result;
 		if(isSQL==0){
-			result=assembleMapper.boxPlotQuery(map);
+			result=assembleMapper.doubleParamQuery(map);
 		}
 		else{
 			result=assembleMapper.superQuery(map.get("sql").toString());

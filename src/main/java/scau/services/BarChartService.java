@@ -22,7 +22,7 @@ public class BarChartService implements ServiceInterface{
 		int isSQL=(int) map.get("isSQL");
 		List<LinkedHashMap> result;
 		if(isSQL==0){
-			result=assembleMapper.customizedQuery(map);
+			result=assembleMapper.doubleParamGroupBy(map);
 		}
 		else{
 			result=assembleMapper.superQuery(map.get("sql").toString());
