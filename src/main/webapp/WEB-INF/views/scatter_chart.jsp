@@ -10,7 +10,7 @@
 <script src="js/ecStat.min.js"></script>
 </head>
 <body>
-	<h2 align="center">柱状图</h2><br>
+	<h2 align="center">散点图</h2><br>
 		<textarea rows="2" cols="40" id="sql"></textarea><button name="superQuery" class="generating">自写查询</button><br>
     表名：<select id="tableOne" name="可选表格"></select>
     回归类型：<select id="regressionType">

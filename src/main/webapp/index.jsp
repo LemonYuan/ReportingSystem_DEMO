@@ -45,9 +45,20 @@
 		<input name="action_name" value="delete_all" type="hidden" />
 		<button id="delete_all">delete_all</button>
 	</form><br>
-	<form action="Kmeans" method="POST">
-		<input name="action_name" value="data_minning" type="hidden" />
-		<button id="data_minning">data_minning</button>
 	</form>
+		<form action="changePage" method="POST">
+		<input name="action_name" value="kmeans" type="hidden" />
+		<button id="Kmeans">Kmeans</button>
+	</form><br>
+	</form>
+		<form action="changePage" method="POST">
+		<input name="action_name" value="EM" type="hidden" />
+		<button id="EM">EM</button>
+	</form><br>
+		</form>
+		<form action="changePage" method="POST">
+		<input name="action_name" value="ID3" type="hidden" />
+		<button id="ID3">ID3</button>
+	</form><br>
 </body>
 </html>

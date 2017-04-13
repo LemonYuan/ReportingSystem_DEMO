@@ -65,6 +65,7 @@ public class DataMiningService {
 		}
 		return null;
 	}
+	
 	public String ID3(LinkedHashMap map,String url){
 		List<LinkedHashMap> result = assembleMapper.multiParamQuery(map);
 		List list = (List) map.get("columns");
@@ -77,18 +78,20 @@ public class DataMiningService {
 			inputfile.delete();
 			inputfile.createNewFile();
 			}
+			
 			FileWriter fw=new FileWriter(inputfile);
+			fw.write("index ");
 			for(int i=0;i<list.size();i++){
 				fw.write(list.get(i).toString()+" ");
 			}
 			fw.write("\r\n");
 			LinkedHashMap temp_map = new LinkedHashMap();
 			for (int i = 0; i < result.size(); i++) {
+				fw.write(String.valueOf(i+1)+" ");
 				temp_map = result.get(i);
 				Iterator iter = temp_map.entrySet().iterator();
 				while (iter.hasNext()) {
 					Entry entry = (Entry) iter.next();
-					System.out.println(entry.getKey() + "  " + entry.getValue());
 					try {
 						fw.write(entry.getValue().toString()+" ");
 					} catch (IOException e) {
@@ -110,9 +113,11 @@ public class DataMiningService {
 		}
 		return null;
 	}
+	
 	public String CBA(LinkedHashMap map,String url){
 		List<LinkedHashMap> result = assembleMapper.multiParamQuery(map);
 		List list = (List) map.get("columns");
+		String detected=(String) map.get("detected");
 		File inputfile = new File(url+"/input.txt");
 		try {
 			if (!inputfile.exists()) {
@@ -155,6 +160,7 @@ public class DataMiningService {
 		}
 		return null;
 	}
+	
 	public String EM(LinkedHashMap map,String url) {
 		List<LinkedHashMap> result = assembleMapper.multiParamQuery(map);
 		System.out.println(map.get("columns").toString());

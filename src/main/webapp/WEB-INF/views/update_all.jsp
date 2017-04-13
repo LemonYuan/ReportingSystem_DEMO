@@ -97,7 +97,7 @@
    			  data:{"t":tableName,"column":column,"column_param":column_param,"premis_column":premis_column,"premis_column_param":premis_column_param},
    			  type:'post',
    			  success: function(result){
-   				  
+   				$("#tableOne").trigger("change");
    		      },
    		    error: function(){
    		    	alert("error in com")
