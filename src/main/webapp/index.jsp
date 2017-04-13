@@ -31,34 +31,53 @@
 		<input name="action_name" value="pie_chart" type="hidden" />
 		<button id="pie_chart">pie_chart</button>
 	</form>
-		<form action="changePage" method="POST">
+	<form action="changePage" method="POST">
 		<input name="action_name" value="scatter_chart" type="hidden" />
 		<button id="scatter_chart">scatter_chart</button>
-	</form><br>
 	</form>
-		<form action="changePage" method="POST">
+	<br>
+	</form>
+	<form action="changePage" method="POST">
 		<input name="action_name" value="update_all" type="hidden" />
 		<button id="update_all">update_all</button>
-	</form><br>
 	</form>
-		<form action="changePage" method="POST">
+	<br>
+	</form>
+	<form action="changePage" method="POST">
 		<input name="action_name" value="delete_all" type="hidden" />
 		<button id="delete_all">delete_all</button>
-	</form><br>
 	</form>
-		<form action="changePage" method="POST">
+	<br>
+	</form>
+	<form action="changePage" method="POST">
 		<input name="action_name" value="kmeans" type="hidden" />
 		<button id="Kmeans">Kmeans</button>
-	</form><br>
 	</form>
-		<form action="changePage" method="POST">
+	<br>
+	</form>
+	<form action="changePage" method="POST">
 		<input name="action_name" value="EM" type="hidden" />
 		<button id="EM">EM</button>
-	</form><br>
-		</form>
-		<form action="changePage" method="POST">
+	</form>
+	<br>
+	</form>
+	<form action="changePage" method="POST">
 		<input name="action_name" value="ID3" type="hidden" />
 		<button id="ID3">ID3</button>
-	</form><br>
+	</form>
+	<br>
+	</form>
+	<br>
+	</form>
+	<form action="changePage" method="POST">
+		<input name="action_name" value="CART" type="hidden" />
+		<button id="CART">CART</button>
+	</form>
+	<br>
+		<form action="changePage" method="POST">
+		<input name="action_name" value="CBA" type="hidden" />
+		<button id="CBA">CBA</button>
+	</form>
+	<br>
 </body>
 </html>

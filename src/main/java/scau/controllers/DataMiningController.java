@@ -90,4 +90,52 @@ public class DataMiningController {
   		System.out.println(url);
      	return dataMiningService.ID3(property, url);
   	}
+	
+	@RequestMapping("/CART")
+  	public @ResponseBody String CART(@RequestParam(value = "sql", required = false) String sql,
+			@RequestParam(value = "isSQL") Integer isSQL,
+			@RequestParam(value = "columns", required = false) String columns,
+			@RequestParam(value = "table", required = false) String table, HttpServletRequest request,
+			HttpServletResponse response) {
+		System.out.println(columns);
+		LinkedHashMap property = new LinkedHashMap();
+		if (columns != null) {
+			String[] column = columns.split(",");
+			List list = new ArrayList();
+			for (int i = 0; i < column.length; i++) {
+				list.add(column[i]);
+			}
+			property.put("columns", list);
+		}
+		property.put("sql", sql);
+		property.put("table", table);
+  		String url=request.getSession().getServletContext().getRealPath("/");
+  		System.out.println(url);
+     	return dataMiningService.CART(property, url);
+  	}
+	
+	@RequestMapping("/CBA")
+  	public @ResponseBody String CBA(@RequestParam(value = "sql", required = false) String sql,
+			@RequestParam(value = "isSQL") Integer isSQL,
+			@RequestParam(value = "detected") String detected,
+			@RequestParam(value = "columns", required = false) String columns,
+			@RequestParam(value = "table", required = false) String table, HttpServletRequest request,
+			HttpServletResponse response) {
+		System.out.println(columns);
+		LinkedHashMap property = new LinkedHashMap();
+		if (columns != null) {
+			String[] column = columns.split(",");
+			List list = new ArrayList();
+			for (int i = 0; i < column.length; i++) {
+				list.add(column[i]);
+			}
+			property.put("columns", list);
+		}
+		property.put("sql", sql);
+		property.put("table", table);
+		property.put("detected", detected);
+  		String url=request.getSession().getServletContext().getRealPath("/");
+  		System.out.println(url);
+     	return dataMiningService.CBA(property, url);
+  	}
 }
