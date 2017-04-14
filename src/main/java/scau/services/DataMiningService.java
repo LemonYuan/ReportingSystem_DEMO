@@ -1,8 +1,12 @@
 package scau.services;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -23,18 +27,17 @@ import scau.tools.Kmeans.KMeansTool;
 public class DataMiningService {
 	@Autowired
 	AssembleMapper assembleMapper;
-
+    
 	public String Kmeans(LinkedHashMap map,String url) {
 		List<LinkedHashMap> result = assembleMapper.multiParamQuery(map);
 		List list = (List) map.get("columns");
 		File inputfile = new File(url+"/input.txt");
-		try {
-			if (!inputfile.exists()) {
-				inputfile.createNewFile();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		File outputfile = new File(url+"/output.txt");
+		recreateFile(inputfile);
+		recreateFile(outputfile);
+		PrintStream ps = System.out; 
+		System.out.println(url);
+		setSystemOutStream(outputfile);
 		FileWriter fw;
 		try {
 			fw = new FileWriter(inputfile);
@@ -44,7 +47,6 @@ public class DataMiningService {
 				Iterator iter = temp_map.entrySet().iterator();
 				while (iter.hasNext()) {
 					Entry entry = (Entry) iter.next();
-					System.out.println(entry.getKey() + "  " + entry.getValue());
 					try {
 						fw.write(entry.getValue().toString()+" ");
 					} catch (IOException e) {
@@ -59,10 +61,10 @@ public class DataMiningService {
 			}
 			fw.close();
 			String filePath = url+"/input.txt";
-			//聚类中心数量设定
 			int classNum = 5;
 			KMeansTool tool = new KMeansTool(filePath, classNum);
 			tool.kMeansClustering();
+			closeSystemOutStream(ps);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -73,14 +75,13 @@ public class DataMiningService {
 		List<LinkedHashMap> result = assembleMapper.multiParamQuery(map);
 		List list = (List) map.get("columns");
 		File inputfile = new File(url+"/input.txt");
+		File outputfile = new File(url+"/output.txt");
+		recreateFile(inputfile);
+		recreateFile(outputfile);
+		PrintStream ps = System.out; 
+		System.out.println(url);
+		setSystemOutStream(outputfile);
 		try {
-			if (!inputfile.exists()) {
-				inputfile.createNewFile();
-			}
-			else{
-			inputfile.delete();
-			inputfile.createNewFile();
-			}
 			
 			FileWriter fw=new FileWriter(inputfile);
 			fw.write("index ");
@@ -111,6 +112,7 @@ public class DataMiningService {
 			String filePath = url+"/input.txt";
 			ID3Tool tool = new ID3Tool(filePath);
 			tool.startBuildingTree(true);
+			closeSystemOutStream(ps);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -121,15 +123,13 @@ public class DataMiningService {
 		List<LinkedHashMap> result = assembleMapper.multiParamQuery(map);
 		List list = (List) map.get("columns");
 		File inputfile = new File(url+"/input.txt");
+		File outputfile = new File(url+"/output.txt");
+		PrintStream ps = System.out; 
+		recreateFile(inputfile);
+		recreateFile(outputfile);
+		System.out.println(url);
+		setSystemOutStream(outputfile);
 		try {
-			if (!inputfile.exists()) {
-				inputfile.createNewFile();
-			}
-			else{
-			inputfile.delete();
-			inputfile.createNewFile();
-			}
-			
 			FileWriter fw=new FileWriter(inputfile);
 			fw.write("index ");
 			for(int i=0;i<list.size();i++){
@@ -162,6 +162,7 @@ public class DataMiningService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		closeSystemOutStream(ps);
 		return null;
 	}
 	public String CBA(LinkedHashMap map,String url){
@@ -169,14 +170,13 @@ public class DataMiningService {
 		List list = (List) map.get("columns");
 		String detected=(String) map.get("detected");
 		File inputfile = new File(url+"/input.txt");
+		File outputfile = new File(url+"/output.txt");
+		PrintStream ps = System.out; 
+		recreateFile(inputfile);
+		recreateFile(outputfile);
+		System.out.println(url);
+		setSystemOutStream(outputfile);
 		try {
-			if (!inputfile.exists()) {
-				inputfile.createNewFile();
-			}
-			else{
-				inputfile.delete();
-				inputfile.createNewFile();
-			}
 			FileWriter fw=new FileWriter(inputfile);
 			for(int i=0;i<list.size();i++){
 				fw.write(list.get(i).toString()+" ");
@@ -188,7 +188,6 @@ public class DataMiningService {
 				Iterator iter = temp_map.entrySet().iterator();
 				while (iter.hasNext()) {
 					Entry entry = (Entry) iter.next();
-					System.out.println(entry.getKey() + "  " + entry.getValue());
 					try {
 						fw.write(entry.getValue().toString()+" ");
 					} catch (IOException e) {
@@ -211,6 +210,7 @@ public class DataMiningService {
 			CBATool tool = new CBATool(filePath, minSupportRate, minConf);
 			classification = tool.CBAJudge(detected);
 			System.out.println(MessageFormat.format("{0}的关联分类结果为{1}", detected, classification));
+			closeSystemOutStream(ps);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -222,13 +222,12 @@ public class DataMiningService {
 		System.out.println(map.get("columns").toString());
 		List list = (List) map.get("columns");
 		File inputfile = new File(url+"/input.txt");
-		try {
-			if (!inputfile.exists()) {
-				inputfile.createNewFile();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		File outputfile = new File(url+"/output.txt");
+		PrintStream ps = System.out; 
+		recreateFile(inputfile);
+		recreateFile(outputfile);
+		System.out.println(url);
+		setSystemOutStream(outputfile);
 		FileWriter fw;
 		try {
 			fw = new FileWriter(inputfile);
@@ -238,7 +237,6 @@ public class DataMiningService {
 				Iterator iter = temp_map.entrySet().iterator();
 				while (iter.hasNext()) {
 					Entry entry = (Entry) iter.next();
-					System.out.println(entry.getKey() + "  " + entry.getValue());
 					try {
 						fw.write(entry.getValue().toString()+" ");
 					} catch (IOException e) {
@@ -258,9 +256,38 @@ public class DataMiningService {
 			EMTool tool = new EMTool(filePath);
 			tool.readDataFile();
 			tool.exceptMaxStep();
+			closeSystemOutStream(ps);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
+      public void setSystemOutStream(File outputfile){
+    	  try { 
+    	        PrintStream ps = new PrintStream(outputfile,"utf-8"); 
+    	        System.setOut(ps); 
+    	        } catch (IOException e) { 
+    	            e.printStackTrace(); 
+    	        } 
+      }
+      public void closeSystemOutStream( PrintStream ps){
+    	  try { 
+  	        System.setOut(ps); 
+  	        } catch (Exception e) { 
+  	            e.printStackTrace(); 
+  	        } 
+      }
+      public void recreateFile(File file){
+    		try {
+    			if (!file.exists()) {
+    				file.createNewFile();
+    			}
+    			else{
+    				file.delete();
+    				file.createNewFile();
+    				}
+    		} catch (IOException e) {
+    			e.printStackTrace();
+    		} 
+      }
 }

@@ -8,7 +8,7 @@
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/echarts.js"></script>
 <script src="js/dataTool.min.js"></script>
-
+<script src="js/showText.js"></script>
 </head>
 <body>
 	<h2 align="center">K均值聚类</h2>
@@ -94,7 +94,7 @@
    			  data:data,
    			  type:'post',
    			  success: function(result){
-   				  
+   			   showText("output.txt");
    		      },
    		    error: function(){
    		    	alert("error in com")
