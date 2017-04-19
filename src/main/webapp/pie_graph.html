@@ -65,11 +65,11 @@
 								<li><a><i class="fa fa-edit"></i> Data Mining <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="ID3_dm.html">ID3</a></li>
-										<li><a href="CART_dm.html">CART</a></li>
-										<li><a href="K-mean_dm.html">K-means</a></li>
-										<li><a href="EM_dm.html">EM</a></li>
-										<li><a href="CBA_dm.html">CBA</a></li>
+										<li><a href="form.html">ID3</a></li>
+										<li><a href="form_advanced.html">CART</a></li>
+										<li><a href="form_validation.html">K-means</a></li>
+										<li><a href="form_wizards.html">EM</a></li>
+										<li><a href="form_upload.html">CBA</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-desktop"></i> Data Pre-process <span
 										class="fa fa-chevron-down"></span></a>
@@ -117,7 +117,7 @@
 										<li><a href="page_403.html">ID3</a></li>
 										<li><a href="page_404.html">CART</a></li>
 										<li><a href="page_500.html">K-means</a></li>
-										<li><a href="EM_dm.html">EM</a></li>
+										<li><a href="plain_page.html">EM</a></li>
 										<li><a href="login.html">CBA</a></li>
 									</ul></li>
 								
@@ -152,7 +152,7 @@
 							<a id="menu_toggle"><i class="fa fa-bars"></i>
 							</as>
 						</div>
-						<h3 align="center">Bar Chart Generating</h3>
+						<h3 align="center">Pie Chart Generating</h3>
 					</nav>
 				</div>
 			</div>
@@ -265,13 +265,14 @@
    					$("#tableOne").trigger("change");
    		      },
    		    error: function(){
-   		    	alert("数据库连接失败")
+   		    	alert("访问失败")
    			  }
    		  });
         });
          
          $("#tableOne").on("change",function(){
         	var tableName=$('#tableOne option:selected').val()
+        	alert(tableName)
         	 $.ajax({
       			  url: "http://localhost:8080/reportsystem/getColumnName",
       			  dataType:"JSON",
@@ -286,63 +287,84 @@
        					}
       		      },
       		    error: function(){
-      		    	alert("数据库连接失败")
+      		    	alert("访问失败")
       			  }
       		  });
          });
 	</script>
-	<script type="text/javascript">
-        $(".generating").click(function(){
-        	var data;
-        	if($(this).attr('name')=='assembleQuery'){
-        		var tableName=$('#tableOne option:selected').val()
-            	var columnName=$('#columnOne option:selected').val()
-            	var obj='{"x":"'+columnName+'","y":"count('+columnName+')","t":"'+tableName+'","isSQL":"0"}';
-            	data=jQuery.parseJSON(obj);
-        	}
-        	else{
-        		var sql=$('#sql').val()
-        		var obj='{"sql":"'+sql+'","isSQL":"1"}';
-        		data =jQuery.parseJSON(obj);
-        	}
+	
+    <script type="text/javascript">
         	
-        	 $.ajax({
-   			  url:"http://localhost:8080/reportsystem/assembleQuery",
-   			  dataType:"JSON",
-   			  data:data,
-   			  type:'post',
-   			  success: function(result){
-   				   if(result){
-   					 var myChart = echarts.init(document.getElementById('main'));
-      				    var option = {
-      				        title: {
-      				            text: 'bar chart'
-      				        },
-      				        tooltip: {},
-      				        legend: {
-      				            data:"quantities"
-      				        },
-      				        xAxis: {
-      				            data:result.categories
-      				        },
-      				        yAxis: {},
-      				        series: [{
-      				            name: 'quantities',
-      				            type: 'bar',
-      				            data: result.data
-      				        }]
-      				    };
-      				    myChart.setOption(option);
-   				   }
-   				   else{
-   					   alert("error in result")
-   				   }
-   		      },
-   		    error: function(){
-   		    	alert("error in com")
-   			  }
-   		  });
-        })
-   </script>
+            $(".generating").click(function(){
+            	var data;
+            	if($(this).attr('name')=='assembleQuery'){
+            		var tableName=$('#tableOne option:selected').val()
+                	var columnName=$('#columnOne option:selected').val()
+                	var obj='{"x":"'+columnName+'","y":"count('+columnName+')","t":"'+tableName+'","isSQL":"0"}';
+                	data=jQuery.parseJSON(obj);
+            	}
+            	else{
+            		var sql=$('#sql').val()
+            		var obj='{"sql":"'+sql+'","isSQL":"1"}';
+            		data =jQuery.parseJSON(obj);
+            	}
+           	 $.ajax({
+      			  url: "http://localhost:8080/reportsystem/pie_chart",
+      			  dataType:"JSON",
+      			data:data,
+      			  success: function(result){
+      				   if(result){
+      	   				    var myChart = echarts.init(document.getElementById('main'));
+      					 option = {
+      						    tooltip: {
+      						        trigger: 'item',
+      						        formatter: "{a} <br/>{b}: {c} ({d}%)"
+      						    },
+      						    legend: {
+      						        orient: 'vertical',
+      						        x: 'left',
+      						        data:result.title
+      						    },
+      						    series: [
+      						        {
+      						            name:'访问来源',
+      						            type:'pie',
+      						            radius: ['50%', '70%'],
+      						            avoidLabelOverlap: false,
+      						            label: {
+      						                normal: {
+      						                    show: false,
+      						                    position: 'center'
+      						                },
+      						                emphasis: {
+      						                    show: true,
+      						                    textStyle: {
+      						                        fontSize: '30',
+      						                        fontWeight: 'bold'
+      						                    }
+      						                }
+      						            },
+      						            labelLine: {
+      						                normal: {
+      						                    show: false
+      						                }
+      						            },
+      						            data:result.data
+      						        }
+      						    ]
+      						};
+      	   				myChart.setOption(option);
+      				   }
+      				   else{
+      					   alert("error in result")
+      				   }
+      		      },
+      		    error: function(){
+      		    	alert("error in com")
+      			  }
+      		  });
+           })
+        
+    </script>
 </body>
 </html>

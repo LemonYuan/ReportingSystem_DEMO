@@ -134,6 +134,7 @@ public class DataMiningController {
 		property.put("sql", sql);
 		property.put("table", table);
 		property.put("detected", detected);
+		System.out.println(property.toString());
   		String url=request.getSession().getServletContext().getRealPath("/");
   		System.out.println(url);
      	return dataMiningService.CBA(property, url);

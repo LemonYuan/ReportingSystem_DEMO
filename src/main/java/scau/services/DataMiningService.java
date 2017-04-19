@@ -178,12 +178,14 @@ public class DataMiningService {
 		setSystemOutStream(outputfile);
 		try {
 			FileWriter fw=new FileWriter(inputfile);
+			fw.write("index ");
 			for(int i=0;i<list.size();i++){
 				fw.write(list.get(i).toString()+" ");
 			}
 			fw.write("\r\n");
 			LinkedHashMap temp_map = new LinkedHashMap();
 			for (int i = 0; i < result.size(); i++) {
+				fw.write(String.valueOf(i+1)+" ");
 				temp_map = result.get(i);
 				Iterator iter = temp_map.entrySet().iterator();
 				while (iter.hasNext()) {

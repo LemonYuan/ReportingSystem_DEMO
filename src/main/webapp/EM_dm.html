@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -65,11 +65,11 @@
 								<li><a><i class="fa fa-edit"></i> Data Mining <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="ID3_dm.html">ID3</a></li>
-										<li><a href="CART_dm.html">CART</a></li>
-										<li><a href="K-mean_dm.html">K-means</a></li>
-										<li><a href="EM_dm.html">EM</a></li>
-										<li><a href="CBA_dm.html">CBA</a></li>
+										<li><a href="form.html">ID3</a></li>
+										<li><a href="form_advanced.html">CART</a></li>
+										<li><a href="form_validation.html">K-means</a></li>
+										<li><a href="form_wizards.html">EM</a></li>
+										<li><a href="form_upload.html">CBA</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-desktop"></i> Data Pre-process <span
 										class="fa fa-chevron-down"></span></a>
@@ -117,7 +117,7 @@
 										<li><a href="page_403.html">ID3</a></li>
 										<li><a href="page_404.html">CART</a></li>
 										<li><a href="page_500.html">K-means</a></li>
-										<li><a href="EM_dm.html">EM</a></li>
+										<li><a href="plain_page.html">EM</a></li>
 										<li><a href="login.html">CBA</a></li>
 									</ul></li>
 								
@@ -152,7 +152,7 @@
 							<a id="menu_toggle"><i class="fa fa-bars"></i>
 							</as>
 						</div>
-						<h3 align="center">Bar Chart Generating</h3>
+						<h3 align="center">Scatter Chart Generating</h3>
 					</nav>
 				</div>
 			</div>
@@ -167,14 +167,14 @@
 							<div class="row x_title">
                   <div class="col-md-6">
                     <h5>便捷查询</h5>
-                    <select id="tableOne" name="可选表格"></select> 
-                    <select id='columnOne' name='可选属性'></select>
-                    <button name="assembleQuery" class="generating">生成</button>
+          表名：<select id="tableOne" name="可选表格"></select><br>
+	 字段名： <div id="columns"></div>
+	<button name="assembleQuery" class="generating">生成</button>
                   </div>
                     
                     <div class="col-md-6">
                     <h5>自写查询</h5>
-                      <input type="text" rows="1" cols="20" id="sql"></input><button name="superQuery" class="generating">生成</button><br>
+                      <input type="text" rows="1" cols="20" id="sql"></input><button name="superQuery" class="generating">生成</button><br>
    
                   </div>
                 </div>
@@ -189,7 +189,7 @@
 				</div>
 				<br />
 				<div class="copyrights">
-					Collect from <a href="http://www.cssmoban.com/" title="网站模板">网站模板</a>
+					Collect from <a href="http://www.cssmoban.com/" title="ç½ç«æ¨¡æ¿">ç½ç«æ¨¡æ¿</a>
 				</div>
 
 			</div>
@@ -199,9 +199,9 @@
 			<footer>
 				<div class="pull-right">
 					Gentelella - Bootstrap Admin Template by Colorlib. More Templates <a
-						href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a>
-					- Collect from <a href="http://www.cssmoban.com/" title="网页模板"
-						target="_blank">网页模板</a>
+						href="http://www.cssmoban.com/" target="_blank" title="æ¨¡æ¿ä¹å®¶">æ¨¡æ¿ä¹å®¶</a>
+					- Collect from <a href="http://www.cssmoban.com/" title="ç½é¡µæ¨¡æ¿"
+						target="_blank">ç½é¡µæ¨¡æ¿</a>
 				</div>
 				<div class="clearfix"></div>
 			</footer>
@@ -247,9 +247,12 @@
 	<script src="js/moment.min.js"></script>
 	<script src="js/daterangepicker.js"></script>
 	<script src="js/echarts.min.js"></script>
+	<script src="js/dataTool.min.js"></script>
+	<script src="js/ecStat.min.js"></script>
+	<script src="js/showText.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="js/custom.min.js"></script>
-	<script type="text/javascript">
+<script type="text/javascript">
          $(document).ready(function(){
         	 $.ajax({
    			  url: "http://localhost:8080/reportsystem/getTableName",
@@ -265,7 +268,7 @@
    					$("#tableOne").trigger("change");
    		      },
    		    error: function(){
-   		    	alert("数据库连接失败")
+   		    	alert("访问失败")
    			  }
    		  });
         });
@@ -279,70 +282,61 @@
     			  type:'post',
       			  success: function(result){
       					var columnName=result.columnName
-      					$("#columnOne").empty()
+      					$("#columns").empty();
        					for (var i=0;i<columnName.length;i++){
        						var index=columnName[i]
-       						$("#columnOne").append("<option value='"+index+"'>"+index+"<br>")
+       						$("#columns").append("<label><input  type='checkbox' value='"+index+"' />"+index+"</label>")
        					}
       		      },
       		    error: function(){
-      		    	alert("数据库连接失败")
+      		    	alert("访问失败")
       			  }
       		  });
          });
+         
+         $(document).on("click",":checkbox",function(){
+        	 var number= $(":checkbox:checked").length
+        	 if(number>2)
+        		 {
+        		     alert("只可选择两个选项")
+        		     $(":checkbox").prop('checked',false)
+        		 }
+         });
 	</script>
+	
+
+	 
 	<script type="text/javascript">
-        $(".generating").click(function(){
-        	var data;
-        	if($(this).attr('name')=='assembleQuery'){
-        		var tableName=$('#tableOne option:selected').val()
-            	var columnName=$('#columnOne option:selected').val()
-            	var obj='{"x":"'+columnName+'","y":"count('+columnName+')","t":"'+tableName+'","isSQL":"0"}';
-            	data=jQuery.parseJSON(obj);
-        	}
-        	else{
-        		var sql=$('#sql').val()
-        		var obj='{"sql":"'+sql+'","isSQL":"1"}';
-        		data =jQuery.parseJSON(obj);
-        	}
-        	
+	 $(".generating").click(function(){
+		  var data;
+     	if($(this).attr('name')=='assembleQuery'){
+     		var columnArray=new Array()
+       	var tableName=$('#tableOne option:selected').val()
+       	$(':checkbox:checked').each(function() { 
+       		columnArray.push($(this).val())
+       	}); 
+         	var obj='{"columns":"'+columnArray.join()+'","table":"'+tableName+'","isSQL":"0"}';
+         	data=jQuery.parseJSON(obj);
+     	}
+     	else{
+     		var sql=$('#sql').val()
+     		var obj='{"sql":"'+sql+'","isSQL":"1"}';
+     		data =jQuery.parseJSON(obj);
+     	}
         	 $.ajax({
-   			  url:"http://localhost:8080/reportsystem/assembleQuery",
-   			  dataType:"JSON",
+   			  url: "http://localhost:8080/reportsystem/EM",
+   			  dataType:"TEXT",
    			  data:data,
    			  type:'post',
    			  success: function(result){
-   				   if(result){
-   					 var myChart = echarts.init(document.getElementById('main'));
-      				    var option = {
-      				        title: {
-      				            text: 'bar chart'
-      				        },
-      				        tooltip: {},
-      				        legend: {
-      				            data:"quantities"
-      				        },
-      				        xAxis: {
-      				            data:result.categories
-      				        },
-      				        yAxis: {},
-      				        series: [{
-      				            name: 'quantities',
-      				            type: 'bar',
-      				            data: result.data
-      				        }]
-      				    };
-      				    myChart.setOption(option);
-   				   }
-   				   else{
-   					   alert("error in result")
-   				   }
+   				  showText("output.txt");
    		      },
    		    error: function(){
    		    	alert("error in com")
    			  }
    		  });
         })
-   </script>
+        
+    </script>
 </body>
 </html>
