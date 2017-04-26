@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ColumnNameMapper {
        public List<LinkedHashMap> getColumnName(HashMap map);
+       public int alterColumnName(LinkedHashMap map);
 }

@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -71,8 +71,8 @@
 										<li><a href="EM_dm.html">EM</a></li>
 										<li><a href="CBA_dm.html">CBA</a></li>
 									</ul></li>
-								<li><a><i class="fa fa-database"></i> Data Pre-process <span
-										class="fa fa-chevron-down"></span></a>
+								<li><a><i class="fa fa-database"></i> Data Pre-process
+										<span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="alter_table.html">change table name</a></li>
 										<li><a href="data_update.html">Update All</a></li>
@@ -83,18 +83,18 @@
 						<div class="menu_section">
 							<h3>guidance</h3>
 							<ul class="nav side-menu">
-							<li><a><i class="fa fa-sitemap"></i> General <span
+								<li><a><i class="fa fa-sitemap"></i> General <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-                        <li><a href="guidance/notice.html">Notice</a>
-
-                    </ul></li>
+										<li><a href="guidance/notice.html">Notice</a>
+									</ul></li>
 								<li><a><i class="fa fa-bar-chart-o"></i> Chart <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 										<li><a href="guidance/guidance_bar.html">Bar Chart</a></li>
 										<li><a href="guidance/guidance_box.html">Box Plot</a></li>
-										<li><a href="guidance/guidance_scatter.html">Scatter Chart</a></li>
+										<li><a href="guidance/guidance_scatter.html">Scatter
+												Chart</a></li>
 										<li><a href="guidance/guidance_pie.html">Pie Chart</a></li>
 										<li><a href="guidance/guidance_geo.html">Geo Graph</a></li>
 									</ul></li>
@@ -107,12 +107,13 @@
 										<li><a href="guidance/guidance_EM.html">EM</a></li>
 										<li><a href="guidance/guidance_CBA.html">CBA</a></li>
 									</ul></li>
-								
+
 							</ul>
 						</div>
 
 					</div>
 					<!-- /sidebar menu -->
+
 				</div>
 			</div>
 
@@ -121,10 +122,9 @@
 				<div class="nav_menu">
 					<nav>
 						<div class="nav toggle">
-							<a id="menu_toggle"><i class="fa fa-bars"></i>
-							</as>
+							<a id="menu_toggle"><i class="fa fa-bars"></i> </as>
 						</div>
-						<h3 align="center">Box Plot Generating</h3>
+						<h3 align="center">Data Process</h3>
 					</nav>
 				</div>
 			</div>
@@ -135,35 +135,20 @@
 				<div class="row">
 					<div class="col-md-12 col-sm-12 col-xs-12">
 						<div class="dashboard_graph">
-
 							<div class="row x_title">
-                  <div class="col-md-6">
-                    <h5>便捷查询</h5>
-      表名：<select id="tableOne" name="可选表格"></select> 分类字段 ：
-	<select id="classification_column"></select>
-	<br> 字段名：
-	<div id="columns"></div>
-	<button name="assembleQuery" class="generating">生成</button>
-                  </div>
-                    
-                    <div class="col-md-6">
-                    <h5>自写查询</h5>
-                      <input type="text" rows="1" cols="20" id="sql"></input><button name="superQuery" class="generating">生成</button><br>
-   
-                  </div>
-                </div>
-
-							  <div class="col-md-12 col-sm-12 col-xs-12" style="float: left;">
-                    <div id="main" class="col-md-8" style="height: 600px;"></div>
-                    <div class="col-md-4" style="height: 600px; "></div>
-                </div>
+								<h3 align="center">
+									更新 表格<select id="originalName"></select>的名字， 设为<input id="newName"
+										type="text"></input>
+									<button id="updata">更新</button>
+								</h3>
+							</div>
 						</div>
 					</div>
 
 				</div>
 				<br />
 				<div class="copyrights">
-					Collect from <a href="http://www.cssmoban.com/" title="ç½ç«æ¨¡æ¿">ç½ç«æ¨¡æ¿</a>
+					Collect from <a href="http://www.cssmoban.com/" title="网站模板">网站模板</a>
 				</div>
 
 			</div>
@@ -173,9 +158,9 @@
 			<footer>
 				<div class="pull-right">
 					Gentelella - Bootstrap Admin Template by Colorlib. More Templates <a
-						href="http://www.cssmoban.com/" target="_blank" title="æ¨¡æ¿ä¹å®¶">æ¨¡æ¿ä¹å®¶</a>
-					- Collect from <a href="http://www.cssmoban.com/" title="ç½é¡µæ¨¡æ¿"
-						target="_blank">ç½é¡µæ¨¡æ¿</a>
+						href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a>
+					- Collect from <a href="http://www.cssmoban.com/" title="网页模板"
+						target="_blank">网页模板</a>
 				</div>
 				<div class="clearfix"></div>
 			</footer>
@@ -221,8 +206,6 @@
 	<script src="js/moment.min.js"></script>
 	<script src="js/daterangepicker.js"></script>
 	<script src="js/echarts.min.js"></script>
-	<script src="js/dataTool.min.js"></script>
-	<script src="js/showText.js"></script>
 	<!-- Custom Theme Scripts -->
 	<script src="js/custom.min.js"></script>
 	<script type="text/javascript">
@@ -239,91 +222,35 @@
 											$("#tableOne").empty()
 											for (var i = 0; i < tableName.length; i++) {
 												var index = tableName[i]
-												$("#tableOne").append(
+												$("#originalName").append(
 														"<option value='"+index+"'>"
 																+ index
 																+ "<br>")
 											}
-											$("#tableOne").trigger("change");
 										},
 										error : function() {
-											alert("访问失败")
-										}
-									});
-						});
-
-		$("#tableOne")
-				.on(
-						"change",
-						function() {
-							var tableName = $('#tableOne option:selected')
-									.val()
-							$
-									.ajax({
-										url : "http://localhost:8080/reportsystem/getColumnName",
-										dataType : "JSON",
-										data : {
-											"tableName" : tableName
-										},
-										type : 'post',
-										success : function(result) {
-											var columnName = result.columnName
-											$("#columns").empty();
-											for (var i = 0; i < columnName.length; i++) {
-												var index = columnName[i]
-												$("#columns").append(
-														"<label><input  type='checkbox' value='"+index+"' />"
-																+ index
-																+ "</label>")
-											}
-											$("#classification_column").empty()
-											for (var i = 0; i < columnName.length; i++) {
-												var index = columnName[i]
-												$("#classification_column")
-														.append(
-																"<option value='"+index+"'>"
-																		+ index
-																		+ "<br>")
-											}
-										},
-										error : function() {
-											alert("访问失败")
+											alert("数据库连接失败")
 										}
 									});
 						});
 	</script>
-
-
-
 	<script type="text/javascript">
-		$(".generating").click(
+		$("#updata").click(
 				function() {
-					var data;
-					if ($(this).attr('name') == 'assembleQuery') {
-						var columnArray = new Array()
-						var tableName = $('#tableOne option:selected').val()
-						$(':checkbox:checked').each(function() {
-							columnArray.push($(this).val())
-						});
-						columnArray.push($('#classification_column option:selected').val());
-						var obj = '{"columns":"' + columnArray.join()
-								+ '","table":"' + tableName + '","isSQL":"0"}';
-						data = jQuery.parseJSON(obj);
-					} else {
-						var sql = $('#sql').val()
-						var obj = '{"sql":"' + sql + '","isSQL":"1"}';
-						data = jQuery.parseJSON(obj);
-					}
+					var originalName = $('#originalName option:selected').val()
+					var newName = $('#newName').val()
 					$.ajax({
-						url : "http://localhost:8080/reportsystem/ID3",
-						dataType : "TEXT",
-						data : data,
+						url : "http://localhost:8080/reportsystem/alterTableName",
+						dataType:"TEXT",
+						data : {
+							"originalName" : originalName,
+							"newName" : newName,
+						},
 						type : 'post',
 						success : function(result) {
-							   showText("output.txt");
 						},
 						error : function() {
-							alert("error in com")
+							alert("更新出错")
 						}
 					});
 				})

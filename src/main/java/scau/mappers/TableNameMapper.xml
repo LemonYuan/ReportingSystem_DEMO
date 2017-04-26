@@ -8,4 +8,8 @@
 select TABLE_NAME  from INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='sales_line'
 </select>
 
+<update id="alterTableName">
+alter table ${originalName} rename ${newName}
+</update>
+
 </mapper>

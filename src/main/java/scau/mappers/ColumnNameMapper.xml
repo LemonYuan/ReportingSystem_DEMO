@@ -9,4 +9,8 @@
 		select COLUMN_NAME from INFORMATION_SCHEMA.Columns where table_name=#{tableName} and
 		table_schema='sales_line'
 	</select>
+	
+	<update id="alterColumnName">
+        alter table ${tableName} change ${originalName} ${newName}
+    </update>
 </mapper>
