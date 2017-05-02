@@ -30,6 +30,7 @@ public class DataMiningService {
     
 	public String Kmeans(LinkedHashMap map,String url) {
 		List<LinkedHashMap> result = assembleMapper.multiParamQuery(map);
+		int number=(int) map.get("number");
 		List list = (List) map.get("columns");
 		File inputfile = new File(url+"/input.txt");
 		File outputfile = new File(url+"/output.txt");
@@ -61,8 +62,7 @@ public class DataMiningService {
 			}
 			fw.close();
 			String filePath = url+"/input.txt";
-			int classNum = 5;
-			KMeansTool tool = new KMeansTool(filePath, classNum);
+			KMeansTool tool = new KMeansTool(filePath, number);
 			tool.kMeansClustering();
 			closeSystemOutStream(ps);
 		} catch (IOException e) {

@@ -10,12 +10,8 @@
 
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <link href="../css/font-awesome.min.css" rel="stylesheet">
-<link href="../css/nprogress.css" rel="stylesheet">
-<link href="../css/green.css" rel="stylesheet">
 
 <link href="../css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-<link href="../css/jqvmap.min.css" rel="stylesheet" />
-<link href="../css/daterangepicker.css" rel="stylesheet">
 
 <link href="../css/custom.min.css" rel="stylesheet">
 </head>
@@ -26,7 +22,7 @@
 			<div class="col-md-3 left_col">
 				<div class="left_col scroll-view">
 					<div class="navbar nav_title" style="border: 0;">
-						<a href="index.html" class="site_title"><i class="fa fa-home"></i>
+						<a href="../index.html" class="site_title"><i class="fa fa-home"></i>
 							<span>analysis system!</span></a>
 					</div>
 
@@ -35,7 +31,7 @@
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
 						<div class="profile_pic">
-							<img src="images/user_profile.png" alt="..."
+							<img src="../images/user_profile.png" alt="..."
 								class="img-circle profile_img">
 						</div>
 						<div class="profile_info">
@@ -86,22 +82,18 @@
 							<li><a><i class="fa fa-sitemap"></i> General <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
-										<li><a href="#level1_1">Level One</a>
-										<li><a>Level One<span class="fa fa-chevron-down"></span></a>
-											<ul class="nav child_menu">
-												<li class="sub_menu"><a href="level2.html">Level
-														Two</a></li>
-												<li><a href="#level2_1">Level Two</a></li>
-												<li><a href="#level2_2">Level Two</a></li>
-											</ul></li>
-										<li><a href="#level1_2">Level One</a></li>
-									</ul></li>
-								<li><a><i class="fa fa-bar-chart-o"></i> Chart <span
-										class="fa fa-chevron-down"></span></a>
-									<ul class="nav child_menu">
                         <li><a href="notice.html">Notice</a>
 
                     </ul></li>
+								<li><a><i class="fa fa-bar-chart-o"></i> Chart <span
+										class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+										<li><a href="guidance_bar.html">Bar Chart</a></li>
+										<li><a href="guidance_box.html">Box Plot</a></li>
+										<li><a href="guidance_scatter.html">Scatter Chart</a></li>
+										<li><a href="guidance_pie.html">Pie Chart</a></li>
+										<li><a href="guidance_geo.html">Geo Graph</a></li>
+									</ul></li>
 								<li><a><i class="fa fa-digg"></i> Data Mining <span
 										class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
@@ -128,7 +120,7 @@
 							<a id="menu_toggle"><i class="fa fa-bars"></i>
 							</as>
 						</div>
-						<h3 align="center">Box Plot Guidance</h3>
+						<h3 align="center">Bar Chart Guidance</h3>
 					</nav>
 				</div>
 			</div>
@@ -156,17 +148,6 @@
         </div>
 			<!-- /page content -->
 
-			<!-- footer content -->
-			<footer>
-				<div class="pull-right">
-					Gentelella - Bootstrap Admin Template by Colorlib. More Templates <a
-						href="http://www.cssmoban.com/" target="_blank" title="æ¨¡æ¿ä¹å®¶">æ¨¡æ¿ä¹å®¶</a>
-					- Collect from <a href="http://www.cssmoban.com/" title="ç½é¡µæ¨¡æ¿"
-						target="_blank">ç½é¡µæ¨¡æ¿</a>
-				</div>
-				<div class="clearfix"></div>
-			</footer>
-			<!-- /footer content -->
 		</div>
 	</div>
 
@@ -174,39 +155,8 @@
 	<script src="../js/jquery.min.js"></script>
 	<!-- Bootstrap -->
 	<script src="../js/bootstrap.min.js"></script>
-	<!-- FastClick -->
-	<script src="../js/fastclick.js"></script>
-	<!-- NProgress -->
-	<script src="../js/nprogress.js"></script>
-	<!-- Chart.js -->
-	<script src="../js/Chart.min.js"></script>
-	<!-- gauge.js -->
-	<script src="../js/gauge.min.js"></script>
 	<!-- bootstrap-progressbar -->
 	<script src="../js/bootstrap-progressbar.min.js"></script>
-	<!-- iCheck -->
-	<script src="../js/icheck.min.js"></script>
-	<!-- Skycons -->
-	<script src="../js/skycons.js"></script>
-	<!-- Flot -->
-	<script src="../js/jquery.flot.js"></script>
-	<script src="../js/jquery.flot.pie.js"></script>
-	<script src="../js/jquery.flot.time.js"></script>
-	<script src="../js/jquery.flot.stack.js"></script>
-	<script src="../js/jquery.flot.resize.js"></script>
-	<!-- Flot plugins -->
-	<script src="../js/jquery.flot.orderBars.js"></script>
-	<script src="../js/jquery.flot.spline.min.js"></script>
-	<script src="../js/curvedLines.js"></script>
-	<!-- DateJS -->
-	<script src="../js/date.js"></script>
-	<!-- JQVMap -->
-	<script src="../js/jquery.vmap.js"></script>
-	<script src="../js/jquery.vmap.world.js"></script>
-	<script src="../js/jquery.vmap.sampledata.js"></script>
-	<!-- bootstrap-daterangepicker -->
-	<script src="../js/moment.min.js"></script>
-	<script src="../js/daterangepicker.js"></script>
 	<script src="../js/echarts.min.js"></script>
 	<script src="../js/dataTool.min.js"></script>
 	<!-- Custom Theme Scripts -->

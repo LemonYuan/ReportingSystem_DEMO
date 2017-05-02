@@ -25,6 +25,7 @@ public class DataMiningController {
 	@RequestMapping("/Kmeans")
   	public @ResponseBody String Kmeans(@RequestParam(value = "sql", required = false) String sql,
 			@RequestParam(value = "isSQL") Integer isSQL,
+			@RequestParam(value = "number",defaultValue="3") Integer number,
 			@RequestParam(value = "columns", required = false) String columns,
 			@RequestParam(value = "table", required = false) String table, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -40,6 +41,7 @@ public class DataMiningController {
 		}
 		property.put("sql", sql);
 		property.put("table", table);
+		property.put("number", number);
   		String url=request.getSession().getServletContext().getRealPath("/");
   		System.out.println("进入box");
      	return dataMiningService.Kmeans(property, url);
