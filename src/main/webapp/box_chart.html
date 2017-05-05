@@ -64,6 +64,7 @@
 										<li><a href="K-mean_dm.html">K-means</a></li>
 										<li><a href="EM_dm.html">EM</a></li>
 										<li><a href="CBA_dm.html">CBA</a></li>
+										<li><a href="roughsets_dm.html">RoughSets</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-database"></i> Data Pre-process
 										<span class="fa fa-chevron-down"></span></a>
@@ -151,7 +152,7 @@
 								<div class="col-md-4" style="height: 600px;">
 								<h4 align="center">分析指导</h4>
 							    <h5>箱线图最重要的是看懂图形数据，具体如下图</h5>
-								<img src="images/box_plot_demo.jpg" class="col-md-8"></img>
+								<img src="images/box_plot_demo.jpg" style="width: 400px;"></img>
 								</div>
 							</div>
 						</div>
@@ -192,7 +193,7 @@
    					$("#tableOne").trigger("change");
    		      },
    		    error: function(){
-   		    	alert("数据库连接失败")
+   		    	alert("数据库表名获取失败")
    			  }
    		  });
         });
@@ -213,7 +214,7 @@
        					}
       		      },
       		    error: function(){
-      		    	alert("属性名和获取失败")
+      		    	alert("数据库字段名获取失败")
       			  }
       		  });
          });
@@ -328,11 +329,11 @@
    			                                        myChart.setOption(option);
    				   }
    				   else{
-   					   alert("error in result")
+   					   alert("结果为空，请检查参数是否完整")
    				   }
    		      },
    		    error: function(){
-   		    	alert("error in com")
+   		    	alert("错误，请检查参数是否为数值型")
    			  }
    		  });
         })

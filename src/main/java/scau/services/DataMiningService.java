@@ -22,6 +22,7 @@ import scau.tools.CBA.CBATool;
 import scau.tools.EM.EMTool;
 import scau.tools.ID3.ID3Tool;
 import scau.tools.Kmeans.KMeansTool;
+import scau.tools.RounhSets.RoughSetsTool;
 
 @Service
 public class DataMiningService {
@@ -264,6 +265,55 @@ public class DataMiningService {
 		}
 		return null;
 	}
+	
+	public String RoughSets(LinkedHashMap map,String url){
+		List<LinkedHashMap> result = assembleMapper.multiParamQuery(map);
+		List list = (List) map.get("columns");
+		File inputfile = new File(url+"/input.txt");
+		File outputfile = new File(url+"/output.txt");
+		recreateFile(inputfile);
+		recreateFile(outputfile);
+		PrintStream ps = System.out; 
+		System.out.println(url);
+		setSystemOutStream(outputfile);
+		try {
+			
+			FileWriter fw=new FileWriter(inputfile);
+			fw.write("index ");
+			for(int i=0;i<list.size();i++){
+				fw.write(list.get(i).toString()+" ");
+			}
+			fw.write("\r\n");
+			LinkedHashMap temp_map = new LinkedHashMap();
+			for (int i = 0; i < result.size(); i++) {
+				fw.write(String.valueOf(i+1)+" ");
+				temp_map = result.get(i);
+				Iterator iter = temp_map.entrySet().iterator();
+				while (iter.hasNext()) {
+					Entry entry = (Entry) iter.next();
+					try {
+						fw.write(entry.getValue().toString()+" ");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				try {
+					fw.write("\r\n");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			fw.close();
+			String filePath = url+"/input.txt";
+			RoughSetsTool tool = new RoughSetsTool(filePath);
+			tool.findingReduct();
+			closeSystemOutStream(ps);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
       public void setSystemOutStream(File outputfile){
     	  try { 
     	        PrintStream ps = new PrintStream(outputfile,"utf-8"); 

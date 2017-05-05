@@ -65,6 +65,7 @@
 										<li><a href="K-mean_dm.html">K-means</a></li>
 										<li><a href="EM_dm.html">EM</a></li>
 										<li><a href="CBA_dm.html">CBA</a></li>
+										<li><a href="roughsets_dm.html">RoughSets</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-database"></i> Data Pre-process
 										<span class="fa fa-chevron-down"></span></a>
@@ -181,7 +182,7 @@
 											}
 										},
 										error : function() {
-											alert("数据库连接失败")
+											alert("数据库获取表名失败")
 										}
 									});
 						});
@@ -200,9 +201,10 @@
 						},
 						type : 'post',
 						success : function(result) {
+							alert("更新成功");
 						},
 						error : function() {
-							alert("更新出错")
+							alert("更新出错，请检查参数是否完整且为英文")
 						}
 					});
 				})

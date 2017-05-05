@@ -63,6 +63,7 @@
 										<li><a href="K-mean_dm.html">K-means</a></li>
 										<li><a href="EM_dm.html">EM</a></li>
 										<li><a href="CBA_dm.html">CBA</a></li>
+										<li><a href="roughsets_dm.html">RoughSets</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-database"></i> Data Pre-process
 										<span class="fa fa-chevron-down"></span></a>
@@ -180,7 +181,7 @@
 											$("#tableOne").trigger("change");
 										},
 										error : function() {
-											alert("数据库连接失败")
+											alert("获取数据库表名失败")
 										}
 									});
 						});
@@ -213,7 +214,7 @@
 													"change");
 										},
 										error : function() {
-											alert("数据库连接失败")
+											alert("数据库字段名获取失败")
 										}
 									});
 						});
@@ -248,7 +249,7 @@
 											}
 										},
 										error : function() {
-											alert("数据库连接失败")
+											alert("字段内容获取失败")
 										}
 									});
 						});
@@ -276,9 +277,10 @@
 						type : 'post',
 						success : function(result) {
 							$("#tableOne").trigger("change");
+							alert("更新了 "+result+" 条");
 						},
 						error : function() {
-							alert("error in com")
+							alert("错误，请检查参数是否完整且为英文")
 						}
 					});
 				})

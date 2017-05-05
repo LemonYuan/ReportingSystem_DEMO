@@ -63,6 +63,7 @@
 										<li><a href="K-mean_dm.html">K-means</a></li>
 										<li><a href="EM_dm.html">EM</a></li>
 										<li><a href="CBA_dm.html">CBA</a></li>
+										<li><a href="roughsets_dm.html">RoughSets</a></li>
 									</ul></li>
 								<li><a><i class="fa fa-database"></i> Data Pre-process
 										<span class="fa fa-chevron-down"></span></a>
@@ -191,7 +192,7 @@
    					$("#tableOne").trigger("change");
    		      },
    		    error: function(){
-   		    	alert("访问失败")
+   		    	alert("数据库表名获取失败")
    			  }
    		  });
         });
@@ -212,7 +213,7 @@
        					}
       		      },
       		    error: function(){
-      		    	alert("访问失败")
+      		    	alert("数据库字段名获取失败")
       			  }
       		  });
          });
@@ -247,7 +248,7 @@
    			   showText("output.txt");
    		      },
    		    error: function(){
-   		    	alert("error in com")
+   		    	alert("错误，请检查输入字段是否为数值型，且表名为英文")
    			  }
    		  });
         })
