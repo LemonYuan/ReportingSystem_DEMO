@@ -22,6 +22,7 @@ import scau.tools.CBA.CBATool;
 import scau.tools.EM.EMTool;
 import scau.tools.ID3.ID3Tool;
 import scau.tools.Kmeans.KMeansTool;
+import scau.tools.RandomForest.RandomForestTool;
 import scau.tools.RounhSets.RoughSetsTool;
 
 @Service
@@ -85,20 +86,20 @@ public class DataMiningService {
 		try {
 			
 			FileWriter fw=new FileWriter(inputfile);
-			fw.write("index ");
+			fw.write("index--");
 			for(int i=0;i<list.size();i++){
-				fw.write(list.get(i).toString()+" ");
+				fw.write(list.get(i).toString()+"--");
 			}
 			fw.write("\r\n");
 			LinkedHashMap temp_map = new LinkedHashMap();
 			for (int i = 0; i < result.size(); i++) {
-				fw.write(String.valueOf(i+1)+" ");
+				fw.write(String.valueOf(i+1)+"--");
 				temp_map = result.get(i);
 				Iterator iter = temp_map.entrySet().iterator();
 				while (iter.hasNext()) {
 					Entry entry = (Entry) iter.next();
 					try {
-						fw.write(entry.getValue().toString()+" ");
+						fw.write(entry.getValue().toString()+"--");
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -132,20 +133,20 @@ public class DataMiningService {
 		setSystemOutStream(outputfile);
 		try {
 			FileWriter fw=new FileWriter(inputfile);
-			fw.write("index ");
+			fw.write("index--");
 			for(int i=0;i<list.size();i++){
-				fw.write(list.get(i).toString()+" ");
+				fw.write(list.get(i).toString()+"--");
 			}
 			fw.write("\r\n");
 			LinkedHashMap temp_map = new LinkedHashMap();
 			for (int i = 0; i < result.size(); i++) {
-				fw.write(String.valueOf(i+1)+" ");
+				fw.write(String.valueOf(i+1)+"--");
 				temp_map = result.get(i);
 				Iterator iter = temp_map.entrySet().iterator();
 				while (iter.hasNext()) {
 					Entry entry = (Entry) iter.next();
 					try {
-						fw.write(entry.getValue().toString()+" ");
+						fw.write(entry.getValue().toString()+"--");
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -166,7 +167,7 @@ public class DataMiningService {
 		closeSystemOutStream(ps);
 		return null;
 	}
-	public String CBA(LinkedHashMap map,String url){
+	public String RandomForest(LinkedHashMap map,String url){
 		List<LinkedHashMap> result = assembleMapper.multiParamQuery(map);
 		List list = (List) map.get("columns");
 		String detected=(String) map.get("detected");
@@ -193,6 +194,67 @@ public class DataMiningService {
 					Entry entry = (Entry) iter.next();
 					try {
 						fw.write(entry.getValue().toString()+" ");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				try {
+					fw.write("\r\n");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			fw.close();
+			String filePath = url+"/input.txt";
+			String resultClassType = "";
+			// 决策树的样本占总数的占比率
+			double sampleNumRatio = 0.4;
+			// 样本数据的采集特征数量占总特征的比例
+			double featureNumRatio = 0.5;
+
+			RandomForestTool tool = new RandomForestTool(filePath, sampleNumRatio,
+					featureNumRatio);
+			tool.constructRandomTree();
+
+			resultClassType = tool.judgeClassType(detected);
+
+			System.out.println();
+			System.out.println(MessageFormat.format(
+							"查询属性描述{0},预测的分类结果为:{1}", detected,
+							resultClassType));
+			closeSystemOutStream(ps);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public String CBA(LinkedHashMap map,String url){
+		List<LinkedHashMap> result = assembleMapper.multiParamQuery(map);
+		List list = (List) map.get("columns");
+		String detected=(String) map.get("detected");
+		File inputfile = new File(url+"/input.txt");
+		File outputfile = new File(url+"/output.txt");
+		PrintStream ps = System.out; 
+		recreateFile(inputfile);
+		recreateFile(outputfile);
+		System.out.println(url);
+		setSystemOutStream(outputfile);
+		try {
+			FileWriter fw=new FileWriter(inputfile);
+			fw.write("index--");
+			for(int i=0;i<list.size();i++){
+				fw.write(list.get(i).toString()+"--");
+			}
+			fw.write("\r\n");
+			LinkedHashMap temp_map = new LinkedHashMap();
+			for (int i = 0; i < result.size(); i++) {
+				fw.write(String.valueOf(i+1)+"--");
+				temp_map = result.get(i);
+				Iterator iter = temp_map.entrySet().iterator();
+				while (iter.hasNext()) {
+					Entry entry = (Entry) iter.next();
+					try {
+						fw.write(entry.getValue().toString()+"--");
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

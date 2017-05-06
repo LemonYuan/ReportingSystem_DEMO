@@ -4,7 +4,7 @@ function showText(url){
         dataType: "TEXT",
         success: function(data) {
         	$("#main").empty();
-            $("#main").prepend("<pre>"+data+"</pre>");
+            $("#main").prepend("<pre  style='height:600px;'>"+data+"</pre>");
         }
     });
 }

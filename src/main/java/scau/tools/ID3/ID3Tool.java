@@ -49,7 +49,7 @@ public class ID3Tool {
 			String str;
 			String[] tempArray;
 			while ((str = in.readLine()) != null) {
-				tempArray = str.split(" ");
+				tempArray = str.split("--");
 				dataArray.add(tempArray);
 			}
 			in.close();
@@ -414,15 +414,15 @@ public class ID3Tool {
 		for (int i = 0; i < blankNum; i++) {
 			System.out.print("\t");
 		}
-		System.out.print("--");
+		System.out.print("——");
 		// 显示分类的属性值
 		if (node.getParentAttrValue() != null
 				&& node.getParentAttrValue().length() > 0) {
 			System.out.print(node.getParentAttrValue());
 		} else {
-			System.out.print("--");
+			System.out.print("——");
 		}
-		System.out.print("--");
+		System.out.print("——");
 
 		if (node.getChildDataIndex() != null
 				&& node.getChildDataIndex().size() > 0) {

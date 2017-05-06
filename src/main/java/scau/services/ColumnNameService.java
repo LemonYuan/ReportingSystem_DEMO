@@ -50,6 +50,7 @@ public class ColumnNameService {
 		LinkedHashMap tem_map = new LinkedHashMap();
 		for (int i = 0; i < result.size(); i++) {
 			tem_map = result.get(i);
+			System.out.println("-----------"+tem_map.toString()+"----------");
 			Iterator it = tem_map.entrySet().iterator();
 			while (it.hasNext()) {
 				Entry en = (Entry) it.next();

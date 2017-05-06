@@ -134,7 +134,7 @@
 									<h5>便捷查询</h5>
 									表名：<select id="tableOne" name="可选表格"></select> 分类字段 ： <select
 										id="classification_column"></select> <br> 字段名：
-									<div id="columns"></div>
+									<div id="columns" style=" overflow:scroll; max-height:200px;"></div>
 									<button name="assembleQuery" class="generating">生成</button>
 								</div>
 
@@ -225,7 +225,7 @@
 												$("#columns").append(
 														"<label><input  type='checkbox' value='"+index+"' />"
 																+ index
-																+ "</label>")
+																+ "</label>&nbsp;&nbsp;")
 											}
 											$("#classification_column").empty()
 											for (var i = 0; i < columnName.length; i++) {
@@ -275,6 +275,7 @@
 						},
 						error : function() {
 							alert("错误，请检查分类字段是否符合要求（Yes或No），且尽量选择种类不多的属性进行分类")
+							showText("output.txt");
 						}
 					});
 				})

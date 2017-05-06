@@ -62,7 +62,7 @@ public class CBATool {
 			String str;
 			String[] tempArray;
 			while ((str = in.readLine()) != null) {
-				tempArray = str.split(" ");
+				tempArray = str.split("--");
 				dataArray.add(tempArray);
 			}
 			in.close();

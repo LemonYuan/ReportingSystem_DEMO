@@ -118,7 +118,7 @@
 						<div class="nav toggle">
 							<a id="menu_toggle"><i class="fa fa-bars"></i> </as>
 						</div>
-						<h3 align="center">Data Mining-CBA</h3>
+						<h3 align="center">Data Mining-RandomForest</h3>
 					</nav>
 				</div>
 			</div>
@@ -137,7 +137,7 @@
 										id="detected_param" name="可选表格"></select> 检测字段 ：
 									<textarea rows="1" cols="40" id="detected"></textarea>
 									<br> 字段名：
-									<div id="columns" style=" overflow:scroll; max-height:200px;"></div>
+									<div id="columns"></div>
 									<button name="assembleQuery" class="generating">生成</button>
 								</div>
 
@@ -154,8 +154,7 @@
 								<div id="main" class="col-md-8" style="height: 600px;"></div>
 								<div class="col-md-4" style="height: 600px;">
 								<h4 align="center">分析指导</h4>
-								<h5>该功能结果较为直观，结果形式类似为“height=tall,gender=male的关联分类结果为Yes”，即
-								“height=tall,gender=male”能得出“Yes”的关联结果，目前只支持两个属性的测试。
+								<h5>该功能是CART的改进版，原理是用多个决策树进行预测。
 								</h5>
 								</div>
 							</div>
@@ -229,7 +228,7 @@
 												$("#columns").append(
 														"<label><input  type='checkbox' value='"+index+"' />"
 																+ index
-																+ "</label>&nbsp;&nbsp;")
+																+ "</label>")
 											}
 											$("#detected_param").empty()
 											for (var i = 0; i < columnName.length; i++) {
@@ -272,7 +271,7 @@
 						data = jQuery.parseJSON(obj);
 					}
 					$.ajax({
-						url : "http://localhost:8080/reportsystem/CBA",
+						url : "http://localhost:8080/reportsystem/RandomForest",
 						dataType : "TEXT",
 						data : data,
 						type : 'post',
